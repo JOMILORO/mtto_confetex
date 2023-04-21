@@ -5,7 +5,7 @@
         <!-- Plantilla para el reporte de Características y Documentos para Máquinas y Herramientas -->
         <template id="report_features_documents">
             <t t-call="web.external_layout">
-                <div class="page" style="font-size:12px">
+                <div class="page" style="font-size:18px">
                     <div class="oe_structure"/>
                     <div id="nombre-equipo" class="row mt32 mb32">
                         <div t-if="doc.name" class="col-9 bm-2">
@@ -120,7 +120,7 @@
         <!-- Plantilla para el reporte de Características para Máquinas y Herramientas -->
         <template id="report_features_equipment">
             <t t-call="web.external_layout">
-                <div class="page" style="font-size:12px">
+                <div class="page" style="font-size:18px">
                     <div class="oe_structure"/>
                     <div id="nombre-equipo" class="row mt32 mb32">
                         <div t-if="doc.name" class="col-9 bm-2">
@@ -228,7 +228,7 @@
 
         <template id="report_equipmentbarcode">
             <t t-call="web.basic_layout">
-                <div class="page" style="font-size:12px">
+                <div class="page" style="font-size:18px">
                     <t t-foreach="docs" t-as="codigo_barras">
                         <t t-call="mtto_confetex.report_equipment_barcode_template">
                             <t t-set="codigo_barras" t-value="codigo_barras"/>
