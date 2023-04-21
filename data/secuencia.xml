@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+
+    <record id="secuencia_maquinas_herramientas" model="ir.sequence">
+        <field name="name">Secuencia para Máquinas y herramientas</field>
+        <field name="implementation">no_gap</field>
+        <field name="code">secuencia.maintenance.equipment1</field>
+        <field name="prefix">INVMYE</field>
+        <field name="suffix"></field>
+        <field name="padding">6</field>
+        <field name="number_increment">1</field>
+        <field name="number_next_actual">1</field>
+    </record>
+
+    <record id="secuencia_revision_maquinas_herramientas" model="ir.sequence">
+        <field name="name">Secuencia para revisiones de máquinas y herramientas</field>
+        <field name="implementation">no_gap</field>
+        <field name="code">secuencia.maintenance.equipment.review1</field>
+        <field name="prefix">REVMYE</field>
+        <field name="suffix"></field>
+        <field name="padding">6</field>
+        <field name="number_increment">1</field>
+        <field name="number_next_actual">1</field>
+    </record>
+
+</odoo>

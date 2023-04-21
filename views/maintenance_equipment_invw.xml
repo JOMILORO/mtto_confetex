@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Acción para el modelo Equipo de mantenimiento utilizado en botón inteligente dentro
+         de jomiloro.equipment.form.inherit1.
+         Abre o muestra todas las revisiones fisicas realizadas  a un equipo de mantenimiento, por
+         default muestra la vista tree -->
+        <record id="action_view_equipo_revision" model="ir.actions.act_window">
+            <field name="name">Revisiones</field>
+            <field name="res_model">maintenance.equipment.review</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('equipo_mantenimiento_id', '=', active_id)]</field>
+            <field name="help" type="html">
+                <p>
+                    La revisiones físicas a máquinas y herramientas deben de realizarse periódicamente
+                    y llevar un seguimiento en fechas.
+                </p>
+            </field>
+        </record>
+
+        <!-- Inherit search View to Modify it -->
+        <record id="jomiloro_equipment_search_inherit1" model="ir.ui.view">
+            <field name="name">jomiloro.equipment.search.inherit1</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="replace">
+                    <field string="Equipment" name="name"
+                           filter_domain="['|', '|', '|', '|', '|', ('name', 'ilike', self),
+                           ('model', 'ilike', self),
+                           ('serial_no', 'ilike', self),
+                           ('partner_ref', 'ilike', self),
+                           ('codigo_interno', 'ilike', self),
+                           ('numero_economico', 'ilike', self)]"/>
+                </xpath>
+                <xpath expr="//filter[@name='available']" position="after">
+                    <filter string="Por inventariar" name="es_inventariable" domain="[('is_inventariado', '=', False)]"/>
+                </xpath>
+                <xpath expr="//filter[@name='category']" position="after">
+                    <filter name="group_by_seccion" string="Sección" context="{'group_by': 'id_seccion'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="jomiloro_equipment_form_inherit1" model="ir.ui.view">
+            <field name="name">jomiloro.equipment.form.inherit1</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button name="%(action_view_equipo_revision)d"
+                            class="oe_stat_button"
+                            icon="fa-cubes"
+                            type="action">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="revisiones_numero"/> veces
+                            </span>
+                            <span class="o_stat_text">
+                                Revisiones
+                            </span>
+                        </div>
+                    </button>
+                </div>
+                <xpath expr="//field[@name='category_id']" position="before">
+                    <field name="codigo_interno"/>
+                </xpath>
+                <xpath expr="//field[@name='location']" position="before">
+                    <field name="id_seccion"/>
+                </xpath>
+                <xpath expr="//field[@name='model']" position="before">
+                    <field name="numero_economico"/>
+                </xpath>
+                <xpath expr="//field[@name='effective_date']" position="after" groups="mtto_confetex.group_documentos_mantenimiento">
+                    <field name="fecha_compra"/>
+                </xpath>
+                <notebook position="inside">
+                    <page string="Documentos" groups="mtto_confetex.group_documentos_mantenimiento">
+                        <group>
+                            <field name="url_carpeta_google_drive" widget="url" string="Url carpeta"/>
+                            <field name="url_documento_qr" widget="url" string="Url documento QR"/>
+                        </group>
+                        <field name="documentos_ids">
+                            <form>
+                                <group>
+                                    <group>
+                                        <field name="id_equipo_mantenimiento" invisible="1"/>
+                                        <field name="name"/>
+                                        <field name="folio"/>
+                                        <field name="id_currency"/>
+                                    </group>
+                                    <group>
+                                        <field name="valor" widget="monetary" options="{'currency_field': 'id_currency'}"/>
+                                        <field name="fecha"/>
+                                        <field name="id_partner" widget="res_partner_many2one"
+                                               context="{'res_partner_search_mode': 'supplier', 'show_vat': True}"
+                                               placeholder="Name, TIN, Email, or Reference"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <field name="url_google_drive" widget="url"/>
+                                    <field name="nota"/>
+                                </group>
+                            </form>
+                            <tree>
+                                <control>
+                                    <create name="add_product_control" string="Agregar documento"/>
+                                </control>
+                                <field name="name"/>
+                                <field name="folio"/>
+                                <field name="fecha"/>
+                                <field name="id_partner" optional="hide"/>
+                                <field name="valor"/>
+                                <field name="id_currency"/>
+                                <field name="url_google_drive" widget="url" text="Ver documento"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <notebook position="inside">
+                    <page string="Revisión física" groups="mtto_confetex.group_documentos_mantenimiento">
+                        <button string="Inventariar" name="inventariar_equipo_mantenimiento" type="object" class="oe_highlight" attrs="{'invisible':[('is_inventariado', '=', True)]}"/>
+                        <group>
+                            <group>
+                                <field name="is_inventariado" widget="boolean_toggle" attrs="{'invisible':[('is_inventariado', '=', False)]}"/>
+                                <field name="usuario_reviso_id" attrs="{'invisible':[('is_inventariado', '=', False)]}"/>
+                            </group>
+                            <group>
+                                <field name="fecha_revision_equipo" attrs="{'invisible':[('is_inventariado', '=', False)]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="comentario_revision" attrs="{'invisible':[('is_inventariado', '=', False)]}"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <!-- Inherit tree View to Modify it -->
+        <record id="jomiloro_equipment_tree_inherit1" model="ir.ui.view">
+            <field name="name">jomiloro.equipment.tree.inherit1</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="before">
+                    <field name="color" widget="color_picker" string="Color"/>
+                    <field name="is_inventariado" invisible="True"/>
+                    <button string="Inventariar" name="inventariar_equipo_mantenimiento" type="object" icon="fa-check" attrs="{'invisible':[('is_inventariado', '=', True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="codigo_interno"/>
+                    <field name="numero_economico" optional="show"/>
+                    <field name="url_carpeta_google_drive" widget="url" text="Carpeta" optional="hide"/>
+                    <field name="url_documento_qr" widget="url" text="Documento QR" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit kanban View to Modify it -->
+        <record id="jomiloro_equipment_kanban_inherit1" model="ir.ui.view">
+            <field name="name">jomiloro.equipment.kanban.inherit1</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_view_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="inside">
+                    <field name="codigo_interno"/>
+                    <field name="is_inventariado"/>
+                </xpath>
+                <xpath expr="//div[@class='o_kanban_record_top']" position="before">
+                    <div t-if="record.codigo_interno.value">
+                        <b class="o_kanban_record_title"><field name="codigo_interno"/> | <field name="numero_economico"/></b>
+                    </div>
+                </xpath>
+                <xpath expr="//div[@class='o_kanban_inline_block']" position="before">
+                    <button name="inventariar_equipo_mantenimiento"
+                            type="object"
+                            class="btn btn-secondary btn-sm mt8"
+                            attrs="{'invisible':[('is_inventariado', '=', True)]}">Inventariar</button>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

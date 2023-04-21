@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Busquedas, filtros y agrupaciones para el modelo Revisión física de equipos de mantenimiento -->
+        <record id="view_maintenance_equipment_review_search" model="ir.ui.view">
+            <field name="name">view.maintenance.equipment.review.search</field>
+            <field name="model">maintenance.equipment.review</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Nombre" filter_domain="['|', '|', ('name', 'ilike', self),
+                    ('codigo_interno', 'ilike', self), ('equipo_mantenimiento_id', 'ilike', self)]"/>
+                    <filter name="documentos_archivados" string="Archivados" domain="[('active', '=', False)]"/>
+                    <group>
+                        <filter name="group_by_codigo_interno" string="Código interno" context="{'group_by': 'codigo_interno'}"/>
+                        <filter name="group_by_equipo_mantenimiento_id" string="Equipo mantenimiento" context="{'group_by': 'equipo_mantenimiento_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Formulario para el modelo Revisión física de equipos de mantenimiento -->
+        <record id="view_maintenance_equipment_review_form" model="ir.ui.view">
+            <field name="name">view.maintenance.equipment.review.form</field>
+            <field name="model">maintenance.equipment.review</field>
+            <field name="arch" type="xml">
+                <form string="Revisiones" create="false" edit="false">
+                    <sheet>
+                        <widget name="web_ribbon" title="Archivado" bg-color="bg-danger" attrs="{'invisible': [('active','=',True)]}"/>
+                        <div class="oe_title">
+                            <field name="active" invisible="1"/>
+                            <label class="oe_edit_only" for="equipo_mantenimiento_id" string="Nombre"/>
+                            <h1><field placeholder="Nombre de máquina o herramienta" name="equipo_mantenimiento_id" readonly="True"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="codigo_interno"/>
+                                <field name="fecha_revision"/>
+                            </group>
+                            <group>
+                                <field name="name"/>
+                                <field name="usuario_reviso_id"/>
+                            </group>
+                        </group>
+                        <field name="comentario"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Listado para el modelo Revisión física de equipos de mantenimiento -->
+        <record id="view_maintenance_equipment_review_tree" model="ir.ui.view">
+            <field name="name">view.maintenance.equipment.review.tree</field>
+            <field name="model">maintenance.equipment.review</field>
+            <field name="arch" type="xml">
+                <tree string="Revisiones" create="false">
+                    <field name="name"/>
+                    <field name="equipo_mantenimiento_id"/>
+                    <field name="codigo_interno"/>
+                    <field name="fecha_revision"/>
+                    <field name="usuario_reviso_id"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+
+</odoo>

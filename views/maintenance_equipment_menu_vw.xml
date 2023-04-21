@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Acciones de ventana para modulo mtto_confetex -->
+
+    <!-- Acción para Canal de Google Drive mantenimiento -->
+    <record id="maintenance_channel_gd_act_open_window" model="ir.actions.act_window">
+        <field name="name">Canales</field>
+        <field name="res_model">maintenance.channel.gd</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Acción para Documento para equipo de mantenimiento -->
+    <record id="maintenance_equipment_document_act_open_window" model="ir.actions.act_window">
+        <field name="name">Documentos</field>
+        <field name="res_model">maintenance.equipment.document</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Acción para Tipos de documento para equipo de mantenimiento -->
+    <record id="maintenance_equipment_document_type_act_open_window" model="ir.actions.act_window">
+        <field name="name">Tipos de documento</field>
+        <field name="res_model">maintenance.equipment.document.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Acción para Revisión física de equipos de mantenimiento -->
+    <record id="maintenance_equipment_review_act_open_window" model="ir.actions.act_window">
+        <field name="name">Revisiones físicas</field>
+        <field name="res_model">maintenance.equipment.review</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Elementos de menú para modulo mtto_confetex -->
+    <menuitem id="mh_canales_google_drive"
+              name="Canales"
+              parent="maintenance.menu_maintenance_title"
+              sequence="10"
+              groups="group_documentos_mantenimiento"
+              action="maintenance_channel_gd_act_open_window"/>
+    <menuitem id="mv_ducumentos_google_drive"
+              name="Documentos"
+              parent="maintenance.menu_equipment_form"
+              sequence="30"
+              groups="group_documentos_mantenimiento"
+              action="maintenance_equipment_document_act_open_window"/>
+    <menuitem id="mv_tipo_ducumento_google_drive"
+              name="Tipos de documento"
+              parent="maintenance.menu_maintenance_configuration"
+              sequence="10"
+              groups="group_documentos_mantenimiento"
+              action="maintenance_equipment_document_type_act_open_window"/>
+    <menuitem id="mv_equipos_maquinas_herramientas"
+              name="Máquinas y herramientas"
+              parent="maintenance.menu_equipment_form"
+              sequence="2"
+              groups="maintenance.group_equipment_manager,base.group_user"
+              action="maintenance.hr_equipment_action"/>
+    <menuitem id="mv_revisiones_fisicas"
+              name="Revisiones físicas"
+              parent="maintenance.menu_equipment_form"
+              sequence="32"
+              groups="group_documentos_mantenimiento"
+              action="maintenance_equipment_review_act_open_window"/>
+
+</odoo>

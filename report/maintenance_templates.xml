@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Plantilla para el reporte de Características y Documentos para Máquinas y Herramientas -->
+        <template id="report_features_documents">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div id="nombre-equipo" class="row mt32 mb32">
+                        <div t-if="doc.name" class="col-9 bm-2">
+                            <strong>Nombre del equipo:</strong>
+                            <h3><span t-field="doc.name"/></h3>
+                        </div>
+                        <div t-if="doc.codigo_interno" class="col-3 bm-2 text-center align-middle">
+                            <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', doc.codigo_interno, 600, 150)" style="width:100%;height:4rem" alt="Barcode"/>
+                            <span t-field="doc.codigo_interno"/>
+                        </div>
+                    </div>
+                    <br/>
+                    <!-- Seguir aquí -->
+                    <div id="informacion-general" class="row mt32 mb32">
+                        <div id="informacion-general-a" class="col-6 bm-2">
+                            <strong>Categoría del equipo: </strong><span t-field="doc.category_id"/><br/>
+                            <strong>Empresa: </strong><span t-field="doc.company_id"/><br/>
+                            <strong>Usado por: </strong><span t-field="doc.equipment_assign_to"/><br/>
+                            <strong>Empleado: </strong><span t-field="doc.employee_id"/><br/>
+                            <strong>Departamento: </strong><span t-field="doc.department_id"/><br/>
+                            <strong>Sección: </strong><span t-field="doc.id_seccion"/>
+                        </div>
+                        <div id="informacion-general-b" class="col-6 bm-2">
+                            <strong>Equipo de mantenimiento: </strong><span t-field="doc.maintenance_team_id"/><br/>
+                            <strong>Técnico: </strong><span t-field="doc.technician_user_id"/><br/>
+                            <strong>Fecha asignada: </strong><span t-field="doc.assign_date"/><br/>
+                            <strong>Fecha de deshecho: </strong><span t-field="doc.scrap_date"/><br/>
+                            <strong>Usado en la ubicación: </strong><span t-field="doc.location"/>
+                        </div>
+                    </div>
+                    <br/>
+                    <h3>Información del producto</h3>
+                    <div id="informacion-producto" class="row mt32 mb32">
+                        <div id="informacion-producto-a" class="col-6 bm-2">
+                            <strong>Proveedor: </strong><span t-field="doc.partner_id"/><br/>
+                            <strong>Referencia de proveedor: </strong><span t-field="doc.partner_ref"/><br/>
+                            <strong>Número económico: </strong><span t-field="doc.numero_economico"/><br/>
+                            <strong>Modelo: </strong><span t-field="doc.model"/><br/>
+                            <strong>Nº de serie: </strong><span t-field="doc.serial_no"/>
+                        </div>
+                        <div id="informacion-producto-b" class="col-6 bm-2">
+                            <strong>Fecha efectiva: </strong><span t-field="doc.effective_date"/><br/>
+                            <strong>Fecha de compra: </strong><span t-field="doc.fecha_compra"/><br/>
+                            <strong>Coste: $</strong><span t-field="doc.cost"/><br/>
+                            <strong>Fecha en la que expira la garantía: </strong><span t-field="doc.warranty_date"/>
+                        </div>
+                    </div>
+                    <br/>
+                    <h3>Revisión física</h3>
+                    <div id="revision-fisica" class="row mt32 mb32">
+                        <div id="revision-fisica-a" class="col-6 bm-2">
+                            <strong>Revisado por: </strong><span t-field="doc.usuario_reviso_id"/>
+                        </div>
+                        <div id="revision-fisica-b" class="col-6 bm-2">
+                            <strong>Fecha de revisión: </strong><span t-field="doc.fecha_revision_equipo"/>
+                        </div>
+                        <div id="revision-fisica-c" class="col-3 bm-2">
+                            <strong>Comentario: </strong>
+                        </div>
+                        <div id="revision-fisica-d" class="col-9 bm-2">
+                            <span t-field="doc.comentario_revision"/>
+                        </div>
+                    </div>
+                    <br/>
+                    <h3>Enlaces a Google Drive</h3>
+                    <strong>Url carpeta: </strong><span t-field="doc.url_carpeta_google_drive"/><br/>
+                    <strong>Url documento QR: </strong><span t-field="doc.url_documento_qr"/>
+                    <table class="table table-sm o_main_table">
+                        <thead>
+                            <th name="th_detalle"><strong>Documentos</strong></th>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="doc.documentos_ids" t-as="docs">
+                                <tr>
+                                    <td id="documento_mov">
+                                        <div id="detalle_documentos" class="row mt32 mb32">
+                                            <div id="detalle_documentos_a" class="col-6 bm-2">
+                                                <strong>Tipo de documento: </strong><a t-att-href="docs.url_google_drive"><span t-field="docs.name"/></a><br/>
+                                                <strong>Número: </strong><span t-field="docs.folio"/><br/>
+                                                <strong>Moneda: </strong><span t-field="docs.id_currency"/>
+                                            </div>
+                                            <div id="detalle_documentos_b" class="col-6 bm-2">
+                                                <strong>Valor: </strong><span t-field="docs.valor" t-options="{'widget': 'float', 'precision': 2}"/><br/>
+                                                <strong>Fecha: </strong><span t-field="docs.fecha"/><br/>
+                                                <strong>Proveedor: </strong><span t-field="docs.id_partner"/>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <br/>
+                            </t>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <h3>Descripción</h3>
+                    <span t-field="doc.note"/>
+                    <!-- Fin seguir aquí -->
+                </div>
+            </t>
+        </template>
+
+        <template id="report_featuresdocuments">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="mtto_confetex.report_features_documents">
+                        <t t-set="doc" t-value="doc"/>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <!-- Plantilla para el reporte de Características para Máquinas y Herramientas -->
+        <template id="report_features_equipment">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div id="nombre-equipo" class="row mt32 mb32">
+                        <div t-if="doc.name" class="col-9 bm-2">
+                            <strong>Nombre del equipo:</strong>
+                            <h3><span t-field="doc.name"/></h3>
+                        </div>
+                        <div t-if="doc.codigo_interno" class="col-3 bm-2 text-center align-middle">
+                            <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', doc.codigo_interno, 600, 150)" style="width:100%;height:4rem" alt="Barcode"/>
+                            <span t-field="doc.codigo_interno"/>
+                        </div>
+                    </div>
+                    <br/>
+                    <!-- Seguir aquí -->
+                    <div id="informacion-general" class="row mt32 mb32">
+                        <div id="informacion-general-a" class="col-6 bm-2">
+                            <strong>Categoría del equipo: </strong><span t-field="doc.category_id"/><br/>
+                            <strong>Empresa: </strong><span t-field="doc.company_id"/><br/>
+                            <strong>Usado por: </strong><span t-field="doc.equipment_assign_to"/><br/>
+                            <strong>Empleado: </strong><span t-field="doc.employee_id"/><br/>
+                            <strong>Departamento: </strong><span t-field="doc.department_id"/><br/>
+                            <strong>Sección: </strong><span t-field="doc.id_seccion"/>
+                        </div>
+                        <div id="informacion-general-b" class="col-6 bm-2">
+                            <strong>Equipo de mantenimiento: </strong><span t-field="doc.maintenance_team_id"/><br/>
+                            <strong>Técnico: </strong><span t-field="doc.technician_user_id"/><br/>
+                            <strong>Fecha asignada: </strong><span t-field="doc.assign_date"/><br/>
+                            <strong>Fecha de deshecho: </strong><span t-field="doc.scrap_date"/><br/>
+                            <strong>Usado en la ubicación: </strong><span t-field="doc.location"/>
+                        </div>
+                    </div>
+                    <br/>
+                    <h3>Información del producto</h3>
+                    <div id="informacion-producto" class="row mt32 mb32">
+                        <div id="informacion-producto-a" class="col-6 bm-2">
+                            <strong>Proveedor: </strong><span t-field="doc.partner_id"/><br/>
+                            <strong>Referencia de proveedor: </strong><span t-field="doc.partner_ref"/><br/>
+                            <strong>Número económico: </strong><span t-field="doc.numero_economico"/><br/>
+                            <strong>Modelo: </strong><span t-field="doc.model"/><br/>
+                            <strong>Nº de serie: </strong><span t-field="doc.serial_no"/>
+                        </div>
+                        <div id="informacion-producto-b" class="col-6 bm-2">
+                            <strong>Fecha efectiva: </strong><span t-field="doc.effective_date"/><br/>
+                            <strong>Coste: $</strong><span t-field="doc.cost"/><br/>
+                            <strong>Fecha en la que expira la garantía: </strong><span t-field="doc.warranty_date"/>
+                        </div>
+                    </div>
+                    <br/>
+                    <h3>Mantenimiento</h3>
+                    <div id="mantenimiento" class="row mt32 mb32">
+                        <div id="informacion-producto-a" class="col-6 bm-2">
+                            <strong>Siguiente mantenimiento preventivo: </strong><span t-field="doc.next_action_date"/>
+                        </div>
+                        <div id="informacion-producto-b" class="col-6 bm-2">
+                            <strong>Frecuencia del mantenimiento preventivo: </strong><span t-field="doc.period"/> días<br/>
+                            <strong>Duración de mantenimiento: </strong><span t-field="doc.maintenance_duration"/> Horas
+                        </div>
+                    </div>
+                    <br/>
+                    <h3>Descripción</h3>
+                    <span t-field="doc.note"/>
+                    <!-- Fin seguir aquí -->
+                </div>
+            </t>
+        </template>
+
+        <template id="report_featuresequipment">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="mtto_confetex.report_features_equipment">
+                        <t t-set="doc" t-value="doc"/>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <!-- Plantilla para el reporte de Códigos de Barra y QR para Máquinas y Herramientas -->
+        <template id="report_equipment_barcode_template">
+            <div style="width: 32%; display: inline-table; height: 10rem;">
+                <table class="table table-bordered mb-0" style="border: 2px solid black;">
+                    <tr>
+                        <th class="table-active text-left" style="height: 4rem;">
+                            <strong t-field="codigo_barras.name"/> | <strong t-field="codigo_barras.category_id"/>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle" style="height: 6rem;">
+                            <t t-if="codigo_barras.codigo_interno">
+                                <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', codigo_barras.codigo_interno, 600, 150)" style="width:100%;height:4rem" alt="Barcode"/>
+                                <span t-field="codigo_barras.codigo_interno"/>
+                            </t>
+                            <t t-else=""><span class="text-muted">No hay código de barras disponible</span></t>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle" style="height: 6rem;">
+                            <t t-if="codigo_barras.url_documento_qr">
+                                <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('QR', codigo_barras.url_documento_qr, 150, 150)" alt="Docuemento QR"/>
+                            </t>
+                            <t t-else=""><span class="text-muted">No hay código QR disponible</span></t>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </template>
+
+        <template id="report_equipmentbarcode">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="codigo_barras">
+                        <t t-call="mtto_confetex.report_equipment_barcode_template">
+                            <t t-set="codigo_barras" t-value="codigo_barras"/>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

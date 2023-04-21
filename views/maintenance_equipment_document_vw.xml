@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Busquedas, filtros y agrupaciones para el modelo Documento para equipo de mantenimiento -->
+        <record id="view_maintenance_equipment_document_search" model="ir.ui.view">
+            <field name="name">view.maintenance.equipment.document.search</field>
+            <field name="model">maintenance.equipment.document</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="id_equipo_mantenimiento" string="Equipo mantenimiento"
+                           filter_domain="['|', '|', '|', '|', ('id_equipo_mantenimiento.model', 'ilike', self),
+                           ('id_equipo_mantenimiento.serial_no', 'ilike', self),
+                           ('id_equipo_mantenimiento.partner_ref', 'ilike', self),
+                           ('id_equipo_mantenimiento.codigo_interno', 'ilike', self),
+                           ('id_equipo_mantenimiento.numero_economico', 'ilike', self)]"/>
+                    <filter name="documentos_archivados" string="Archivados" domain="[('active', '=', False)]"/>
+                    <group>
+                        <filter name="group_by_tipo_documento" string="Tipo documento" context="{'group_by': 'name'}"/>
+                        <filter name="group_by_equipo_mantenimiento" string="Equipo mantenimiento" context="{'group_by': 'id_equipo_mantenimiento'}"/>
+                        <filter name="group_by_proveedor" string="Proveedor" context="{'group_by' : 'id_partner'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Formulario para el modelo Documento para equipo de mantenimiento -->
+        <record id="view_maintenance_equipment_document_form" model="ir.ui.view">
+            <field name="name">view.maintenance.equipment.document.form</field>
+            <field name="model">maintenance.equipment.document</field>
+            <field name="arch" type="xml">
+                <form string="Documento para máquina">
+                    <sheet>
+                        <widget name="web_ribbon" title="Archivado" bg-color="bg-danger" attrs="{'invisible': [('active','=',True)]}"/>
+                        <group>
+                            <group>
+                                <field name="active" invisible="1"/>
+                                <field name="id_equipo_mantenimiento" invisible="1"/>
+                                <field name="name"/>
+                                <field name="folio"/>
+                                <field name="id_currency"/>
+                            </group>
+                            <group>
+                                <field name="valor" widget="monetary" options="{'currency_field': 'id_currency'}"/>
+                                <field name="fecha"/>
+                                <field name="id_partner" widget="res_partner_many2one"
+                                       context="{'res_partner_search_mode': 'supplier', 'show_vat': True}"
+                                       placeholder="Nombre, RFC, Email, o Referencia"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="url_google_drive" widget="url"/>
+                            <field name="nota"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Listado para el modelo Documento para equipo de mantenimiento -->
+        <record id="view_maintenance_equipment_document_tree" model="ir.ui.view">
+            <field name="name">view.maintenance.equipment.document.tree</field>
+            <field name="model">maintenance.equipment.document</field>
+            <field name="arch" type="xml">
+                <tree string="Documentos para máquinas" create="true">
+                    <field name="name"/>
+                    <field name="folio"/>
+                    <field name="fecha"/>
+                    <field name="id_partner" optional="hide"/>
+                    <field name="valor"/>
+                    <field name="id_currency"/>
+                    <field name="url_google_drive" widget="url" text="Ver documento"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Secciones -->
+    <record id="maintenance_equipment_section_1" model="maintenance.equipment.section">
+        <field name="name">ALMACEN DE MAQUINARIA</field>
+    </record>
+    <record id="maintenance_equipment_section_2" model="maintenance.equipment.section">
+        <field name="name">ALMACEN TEMPORAL DE MAQUINARIA P1</field>
+    </record>
+    <record id="maintenance_equipment_section_3" model="maintenance.equipment.section">
+        <field name="name">ALMACEN TEMPORAL DE MAQUINARIA P2</field>
+    </record>
+    <record id="maintenance_equipment_section_4" model="maintenance.equipment.section">
+        <field name="name">ALMACEN TEMPORAL DE MAQUINARIA P3</field>
+    </record>
+    <record id="maintenance_equipment_section_5" model="maintenance.equipment.section">
+        <field name="name">ALMACEN TEMPORAL DE MAQUINARIA P4</field>
+    </record>
+    <record id="maintenance_equipment_section_6" model="maintenance.equipment.section">
+        <field name="name">ALMACEN TEMPORAL DE MAQUINARIA P5</field>
+    </record>
+    <record id="maintenance_equipment_section_7" model="maintenance.equipment.section">
+        <field name="name">BORDADO</field>
+    </record>
+    <record id="maintenance_equipment_section_8" model="maintenance.equipment.section">
+        <field name="name">DELANTERO</field>
+    </record>
+    <record id="maintenance_equipment_section_9" model="maintenance.equipment.section">
+        <field name="name">ENSAMBLE</field>
+    </record>
+    <record id="maintenance_equipment_section_10" model="maintenance.equipment.section">
+        <field name="name">HABILITACION DE BOLSA</field>
+    </record>
+    <record id="maintenance_equipment_section_11" model="maintenance.equipment.section">
+        <field name="name">MANTENIMIENTO</field>
+    </record>
+    <record id="maintenance_equipment_section_12" model="maintenance.equipment.section">
+        <field name="name">MUESTRAS</field>
+    </record>
+    <record id="maintenance_equipment_section_13" model="maintenance.equipment.section">
+        <field name="name">PARTES PEQUEÑAS</field>
+    </record>
+    <record id="maintenance_equipment_section_14" model="maintenance.equipment.section">
+        <field name="name">TERMINADO</field>
+    </record>
+    <record id="maintenance_equipment_section_15" model="maintenance.equipment.section">
+        <field name="name">TRASERO</field>
+    </record>
+
+    <!-- Categoría de canal de Google Drive -->
+    <record id="maintenance_channel_gd_category_1" model="maintenance.channel.gd.category">
+        <field name="name">CONFECCION</field>
+    </record>
+    <record id="maintenance_channel_gd_category_2" model="maintenance.channel.gd.category">
+        <field name="name">LAVANDERIA</field>
+    </record>
+    <record id="maintenance_channel_gd_category_3" model="maintenance.channel.gd.category">
+        <field name="name">TECNOLOGIAS DE LA INFORMACION</field>
+    </record>
+
+    <!-- Canales Google Drive -->
+    <record id="maintenance_channel_gd_1" model="maintenance.channel.gd">
+        <field name="name">Máquinas y herramientas de Confección</field>
+        <field name="nombre_corto">MYHCON</field>
+        <field name="id_categoria" ref="maintenance_channel_gd_category_1"/>
+        <field name="url_carpeta_google_drive">https://drive.google.com/drive/folders/1RRt_N3h4vTLK-Jz_il0la57J6Dm9TKuf?usp=sharing</field>
+        <field name="directorio_fisico">Contabilida > Maquinas y herramientas (documentos) > Máquinas y herramientas de Confección</field>
+        <field name="descripcion">Canal o carpeta en Google Drive para almacenar toda la documentación referente a Máquinas y herramientas de Confección. Para organizarla información se recomienda crear carpetas y renombrarlas con el nombre asignado a referencia interna.</field>
+    </record>
+    <record id="maintenance_channel_gd_2" model="maintenance.channel.gd">
+        <field name="name">Máquinas y herramientas de Lavandería</field>
+        <field name="nombre_corto">MYHLAV</field>
+        <field name="id_categoria" ref="maintenance_channel_gd_category_2"/>
+        <field name="url_carpeta_google_drive">https://drive.google.com/drive/folders/1R5wcpTPQo3r3ZtGfBmcXny2m_64fxxT_?usp=share_link</field>
+        <field name="directorio_fisico">Contabilida > Maquinas y herramientas (documentos) > Máquinas y herramientas de Lavandería</field>
+        <field name="descripcion">Canal o carpeta en Google Drive para almacenar toda la documentación referente a Máquinas y herramientas de Lavandería. Para organizarla información se recomienda crear carpetas y renombrarlas con el nombre asignado a referencia interna.</field>
+    </record>
+    <record id="maintenance_channel_gd_3" model="maintenance.channel.gd">
+        <field name="name">Máquinas y herramientas de TI</field>
+        <field name="nombre_corto">MYHTDI</field>
+        <field name="id_categoria" ref="maintenance_channel_gd_category_3"/>
+        <field name="url_carpeta_google_drive">https://drive.google.com/drive/folders/1H3bEwITXesFToYnk2S8qkNh42AEgzJf7?usp=share_link</field>
+        <field name="directorio_fisico">Contabilida > Maquinas y herramientas (documentos) > Máquinas y herramientas de Tecnologías de la Información</field>
+        <field name="descripcion">Canal o carpeta en Google Drive para almacenar toda la documentación referente a Máquinas y herramientas de Tecnologías de la Información. Para organizarla información se recomienda crear carpetas y renombrarlas con el nombre asignado a referencia interna.</field>
+    </record>
+
+    <!-- Tipos de documento para equipo de mantenimiento -->
+    <record id="maintenance_equipment_document_type_1" model="maintenance.equipment.document.type">
+        <field name="name">Carta porte</field>
+        <field name="comentario">La Secretaria de Comunicaciones y Transportes, define la carta porte como el título legal del contrato entre una empresa que ofrece transporte de mercancía y el usuario o cliente que contrata su servicio.</field>
+    </record>
+    <record id="maintenance_equipment_document_type_2" model="maintenance.equipment.document.type">
+        <field name="name">Factura comercial</field>
+        <field name="comentario">Documento que identifica al vendedor y al comprador de bienes o servicios, donde se asienta el número de la factura, la fecha de embarque, el medio de transporte, la entrega y términos de pago, así como un listado completo con la descripción de los bienes y servicios en cuestión, incluyendo precios, descuentos y cantidades.</field>
+    </record>
+    <record id="maintenance_equipment_document_type_3" model="maintenance.equipment.document.type">
+        <field name="name">Factura fiscal</field>
+        <field name="comentario">Documento privado en el que se hacen constar los aspectos esenciales de una operación mercantil y que sirve en el derecho tributario para establecer, por una parte, la base imponible de determinados impuestos, como el impuesto sobre el valor añadido y los impuestos especiales, y, por otra, para justificar las adquisiciones, los gastos y las deducciones en los impuestos que afectan a la actividad empresarial, como en el impuesto de sociedades o en las actividades económicas en el impuesto sobre la renta de personas físicas.</field>
+    </record>
+    <record id="maintenance_equipment_document_type_4" model="maintenance.equipment.document.type">
+        <field name="name">Lista de embarque</field>
+        <field name="comentario">Es una lista en que se especifica el contenido de cada bulto de una operación de exportación. Normalmente acompaña a la factura.</field>
+    </record>
+    <record id="maintenance_equipment_document_type_5" model="maintenance.equipment.document.type">
+        <field name="name">Pedimento de importación o exportación</field>
+        <field name="comentario">El pedimento es un documento fundamental para efectuar importaciones o exportaciones de mercancías en México y demostrar a las autoridades que se ha cumplido con los requisitos necesarios, tanto en impuestos, como en procesos de comercio exterior.</field>
+    </record>
+
+    <!-- Equipos de mantenimiento -->
+    <record id="equipment_team_1" model="maintenance.team">
+        <field name="name">Mantenimiento a equipos de confección</field>
+    </record>
+    <record id="equipment_team_2" model="maintenance.team">
+        <field name="name">Mantenimiento a equipos industriales y lavado</field>
+    </record>
+    <record id="equipment_team_3" model="maintenance.team">
+        <field name="name">Mantenimiento a equipos de cómputo</field>
+    </record>
+
+    <!-- Categorías de equipamiento -->
+    <record id="maintenance_equipment_category_1" model="maintenance.equipment.category">
+        <field name="name">MAQUINA OVER</field>
+        <field name="alias_name">maquinas-over</field>
+    </record>
+    <record id="maintenance_equipment_category_2" model="maintenance.equipment.category">
+        <field name="name">MAQUINA RECTA</field>
+        <field name="alias_name">maquina-recta</field>
+    </record>
+    <record id="maintenance_equipment_category_3" model="maintenance.equipment.category">
+        <field name="name">MAQUINA 2 AGUJAS</field>
+        <field name="alias_name">maquina-2-agujas</field>
+    </record>
+    <record id="maintenance_equipment_category_4" model="maintenance.equipment.category">
+        <field name="name">MAQUINA DE CUADRO</field>
+        <field name="alias_name">maquina-de-cuadro</field>
+    </record>
+
+</odoo>

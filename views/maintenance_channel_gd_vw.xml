@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Busquedas,filtros y agrupaciones para el modelo Canal de Google Drive mantenimiento -->
+        <record id="view_maintenance_channel_gd_search" model="ir.ui.view">
+            <field name="name">view.maintenance.channel.gd.search</field>
+            <field name="model">maintenance.channel.gd</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Nombre" filter_domain="['|', ('name', 'ilike', self), ('nombre_corto', 'ilike', self)]"/>
+                    <filter name="canales_archivados" string="Archivados" domain="[('active', '=', False)]"/>
+                    <group>
+                        <filter name="group_by_categoria" string="Categoría" context="{'group_by': 'id_categoria'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Formulario para el modelo Canal de Google Drive mantenimiento -->
+        <record id="view_maintenance_channel_gd_form" model="ir.ui.view">
+            <field name="name">view.maintenance.channel.gd.form</field>
+            <field name="model">maintenance.channel.gd</field>
+            <field name="arch" type="xml">
+                <form string="Canal Google Drive">
+                    <sheet>
+                        <widget name="web_ribbon" title="Archivado" bg-color="bg-danger" attrs="{'invisible': [('active','=',True)]}"/>
+                        <div class="oe_title">
+                            <field name="active" invisible="1"/>
+                            <label class="oe_edit_only" for="name" string="Nombre"/>
+                            <h1><field placeholder="Nombre del canal" name="name" required="1" default_focus="1"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="nombre_corto" />
+                                <field name="id_categoria"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="url_carpeta_google_drive" widget="url"/>
+                            <field name="directorio_fisico"/>
+                            <field name="descripcion"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Listado para el modelo Canal de Google Drive mantenimiento -->
+        <record id="view_maintenance_channel_gd_tree" model="ir.ui.view">
+            <field name="name">view.maintenance.channel.gd.tree</field>
+            <field name="model">maintenance.channel.gd</field>
+            <field name="arch" type="xml">
+                <tree string="Canales Google Drive">
+                    <field name="url_carpeta_google_drive" widget="url" text="Visitar Carpeta"/>
+                    <field name="name"/>
+                    <field name="nombre_corto"/>
+                    <field name="id_categoria"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

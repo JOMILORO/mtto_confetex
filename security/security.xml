@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+
+    <record id="group_documentos_mantenimiento" model="res.groups">
+        <field name="name">Documentos en mantenimineto</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user')), (4, ref('hr.group_hr_user'))]"/>
+        <field name="comment">El usuario podrá ver y modificar archivos desde Google Drive en Mantenimiento</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="report_equipment_documents" model="ir.actions.report">
+            <field name="name">Características y documentos</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">mtto_confetex.report_featuresdocuments</field>
+            <field name="report_file">mtto_confetex.report_featuresdocuments</field>
+            <field name="print_report_name">'Características y documentos en equipo - %s' % (object.codigo_interno)</field>
+            <field name="binding_model_id" ref="maintenance.model_maintenance_equipment"/>
+            <field name="binding_type">report</field>
+            <field name="groups_id" eval="[(4, ref('group_documentos_mantenimiento'))]"/>
+        </record>
+
+        <record id="report_equipment" model="ir.actions.report">
+            <field name="name">Características</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">mtto_confetex.report_featuresequipment</field>
+            <field name="report_file">mtto_confetex.report_featuresequipment</field>
+            <field name="print_report_name">'Características en equipo - %s' % (object.codigo_interno)</field>
+            <field name="binding_model_id" ref="maintenance.model_maintenance_equipment"/>
+            <field name="binding_type">report</field>
+            <field name="groups_id" eval="[(4, ref('maintenance.group_equipment_manager')), (4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="report_equipment_barcode" model="ir.actions.report">
+            <field name="name">Equipos código de barras</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">mtto_confetex.report_equipmentbarcode</field>
+            <field name="report_file">mtto_confetex.report_equipmentbarcode</field>
+            <field name="print_report_name">'Equipos código de barras'</field>
+            <field name="binding_model_id" ref="maintenance.model_maintenance_equipment"/>
+            <field name="binding_type">report</field>
+            <field name="groups_id" eval="[(4, ref('group_documentos_mantenimiento'))]"/>
+        </record>
+
+    </data>
+</odoo>

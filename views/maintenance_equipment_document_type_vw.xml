@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Busquedas,filtros y agrupaciones para el modelo Tipos de documento para equipo de mantenimiento -->
+        <record id="view_maintenance_equipment_document_type_search" model="ir.ui.view">
+            <field name="name">view.maintenance.equipment.document.type.search</field>
+            <field name="model">maintenance.equipment.document.type</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Nombre" filter_domain="[('name', 'ilike', self)]"/>
+                    <filter name="canales_archivados" string="Archivados" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Formulario para el modelo Tipos de documento para equipo de mantenimiento -->
+        <record id="view_maintenance_equipment_document_type_form" model="ir.ui.view">
+            <field name="name">view.maintenance.equipment.document.type.form</field>
+            <field name="model">maintenance.equipment.document.type</field>
+            <field name="arch" type="xml">
+                <form string="Tipo de documento">
+                    <sheet>
+                        <widget name="web_ribbon" title="Archivado" bg-color="bg-danger" attrs="{'invisible': [('active','=',True)]}"/>
+                        <div class="oe_title">
+                            <field name="active" invisible="1"/>
+                            <label class="oe_edit_only" for="name" string="Nombre"/>
+                            <h1><field placeholder="Nombre del tipo de documento" name="name" default_focus="1"/></h1>
+                        </div>
+                        <group>
+                            <field name="comentario"/>
+                            <field name="create_uid" string="Creado por"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Listado para el modelo Tipos de documento para equipo de mantenimiento -->
+        <record id="view_maintenance_equipment_document_type_tree" model="ir.ui.view">
+            <field name="name">view.maintenance.equipment.document.type.tree</field>
+            <field name="model">maintenance.equipment.document.type</field>
+            <field name="arch" type="xml">
+                <tree string="Tipos de documento">
+                    <field name="name"/>
+                    <field name="create_uid" string="Creado por"/>
+                    <field name="comentario"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

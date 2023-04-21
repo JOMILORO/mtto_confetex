@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="set_no_inventariado_action_server" model="ir.actions.server">
+            <field name="name">Inventariar equipo</field>
+            <field name="model_id" ref="model_maintenance_equipment"/>
+            <field name="binding_model_id" ref="model_maintenance_equipment"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.set_no_inventariado()</field>
+            <field name="groups_id" eval="[(4, ref('group_documentos_mantenimiento'))]"/>
+        </record>
+
+    </data>
+</odoo>
