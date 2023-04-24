@@ -76,6 +76,9 @@
                 <xpath expr="//field[@name='effective_date']" position="after" groups="mtto_confetex.group_documentos_mantenimiento">
                     <field name="fecha_compra"/>
                 </xpath>
+                <xpath expr="//field[@name='cost']" position="after">
+                    <field name="id_currency"/>
+                </xpath>
                 <notebook position="inside">
                     <page string="Documentos" groups="mtto_confetex.group_documentos_mantenimiento">
                         <group>

@@ -50,6 +50,7 @@
                             <strong>Fecha efectiva: </strong><span t-field="doc.effective_date"/><br/>
                             <strong>Fecha de compra: </strong><span t-field="doc.fecha_compra"/><br/>
                             <strong>Coste: $</strong><span t-field="doc.cost"/><br/>
+                            <strong>Moneda: </strong><span t-field="doc.id_currency"/><br/>
                             <strong>Fecha en la que expira la garantía: </strong><span t-field="doc.warranty_date"/>
                         </div>
                     </div>
@@ -164,6 +165,7 @@
                         <div id="informacion-producto-b" class="col-6 bm-2">
                             <strong>Fecha efectiva: </strong><span t-field="doc.effective_date"/><br/>
                             <strong>Coste: $</strong><span t-field="doc.cost"/><br/>
+                            <strong>Moneda: </strong><span t-field="doc.id_currency"/><br/>
                             <strong>Fecha en la que expira la garantía: </strong><span t-field="doc.warranty_date"/>
                         </div>
                     </div>

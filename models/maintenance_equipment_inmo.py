@@ -48,6 +48,12 @@ class MaintenanceEquipmentInmo(models.Model):
     comentario_revision = fields.Text(string="Comentario", required=False)
     revisiones_numero = fields.Integer(string='Revisiones', compute='revisiones_fisicas_count', required=False)
     is_inventariado = fields.Boolean(string="Inventariado", default=True, copy=True)
+    id_currency = fields.Many2one(
+        comodel_name="res.currency",
+        string="Moneda",
+        required=False,
+        default=lambda self: self.env.company.currency_id.id
+    )
 
     @api.model
     def create(self, values):
