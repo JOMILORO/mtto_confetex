@@ -60,7 +60,7 @@ class MaintenanceEquipmentInmo(models.Model):
         # Add code here
         logger.info('********** Variables: {0}'.format(values))
         values['codigo_interno'] = self.env['ir.sequence'].next_by_code('secuencia.maintenance.equipment1')
-        if values["is_inventariado"]:
+        if 'is_inventariado' in values:
             values["fecha_revision_equipo"] = fields.datetime.now()
             values["usuario_reviso_id"] = self.env.uid
             values["comentario_revision"] = 'Revisión física contable realizada en la creación del equipo de mantenimiento.'
