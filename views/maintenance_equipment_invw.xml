@@ -35,6 +35,7 @@
                            ('numero_economico', 'ilike', self)]"/>
                 </xpath>
                 <xpath expr="//filter[@name='available']" position="after">
+                    <filter string="Equipo de apoyo" name="es_equipo_apoyo" domain="[('es_equipo_apoyo', '=', True)]"/>
                     <filter string="Por inventariar" name="es_inventariable" domain="[('is_inventariado', '=', False)]"/>
                 </xpath>
                 <xpath expr="//filter[@name='category']" position="after">
@@ -70,6 +71,9 @@
                 <xpath expr="//field[@name='location']" position="before">
                     <field name="id_seccion"/>
                 </xpath>
+                <xpath expr="//field[@name='location']" position="after">
+                    <field name="es_kit" widget="boolean_toggle"/>
+                </xpath>
                 <xpath expr="//field[@name='model']" position="before">
                     <field name="numero_economico"/>
                 </xpath>
@@ -78,6 +82,9 @@
                 </xpath>
                 <xpath expr="//field[@name='cost']" position="after">
                     <field name="id_currency"/>
+                </xpath>
+                <xpath expr="//field[@name='warranty_date']" position="after">
+                    <field name="es_equipo_apoyo" widget="boolean_toggle"/>
                 </xpath>
                 <notebook position="inside">
                     <page string="Documentos" groups="mtto_confetex.group_documentos_mantenimiento">
@@ -171,6 +178,7 @@
                 <xpath expr="//kanban" position="inside">
                     <field name="codigo_interno"/>
                     <field name="is_inventariado"/>
+                    <field name="es_equipo_apoyo"/>
                 </xpath>
                 <xpath expr="//div[@class='o_kanban_record_top']" position="before">
                     <div t-if="record.codigo_interno.value">
@@ -178,6 +186,9 @@
                     </div>
                 </xpath>
                 <xpath expr="//div[@class='o_kanban_inline_block']" position="before">
+                    <span attrs="{'invisible':[('es_equipo_apoyo', '=', False)]}" class="badge badge-pill badge-warning">
+                        Equipo de apoyo
+                    </span>
                     <button name="inventariar_equipo_mantenimiento"
                             type="object"
                             class="btn btn-secondary btn-sm mt8"

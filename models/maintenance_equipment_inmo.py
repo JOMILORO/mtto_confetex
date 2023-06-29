@@ -54,6 +54,8 @@ class MaintenanceEquipmentInmo(models.Model):
         required=False,
         default=lambda self: self.env.company.currency_id.id
     )
+    es_equipo_apoyo = fields.Boolean(string="Equipo de apoyo", default=False, copy=True)
+    es_kit = fields.Boolean(string="Kit", default=False, copy=True)
 
     @api.model
     def create(self, values):
