@@ -54,8 +54,14 @@ class MaintenanceEquipmentInmo(models.Model):
         required=False,
         default=lambda self: self.env.company.currency_id.id
     )
+    # Campos agrgados al modelo 30-06-2023
     es_equipo_apoyo = fields.Boolean(string="Equipo de apoyo", default=False, copy=True)
     es_kit = fields.Boolean(string="Kit", default=False, copy=True)
+    propiedad_equipo = fields.Selection(string="Tipo equipo", selection=[
+        ('empresa', 'Propiedad de la empresa'),
+        ('contrato', 'Bajo contrato o arrendamiento'),
+        ('prestada', 'Suministrado por foráneo'),
+    ], required=False, copy=True, default='empresa')
 
     @api.model
     def create(self, values):

@@ -35,7 +35,9 @@
                            ('numero_economico', 'ilike', self)]"/>
                 </xpath>
                 <xpath expr="//filter[@name='available']" position="after">
+                    <filter string="Equipo bajo contrato" name="equipo_contrato" domain="[('propiedad_equipo', '=', 'contrato')]"/>
                     <filter string="Equipo de apoyo" name="es_equipo_apoyo" domain="[('es_equipo_apoyo', '=', True)]"/>
+                    <filter string="Equipo suministrado foráneo " name="equipo_foraneo" domain="[('propiedad_equipo', '=', 'prestada')]"/>
                     <filter string="Por inventariar" name="es_inventariable" domain="[('is_inventariado', '=', False)]"/>
                 </xpath>
                 <xpath expr="//filter[@name='category']" position="after">
@@ -77,14 +79,17 @@
                 <xpath expr="//field[@name='model']" position="before">
                     <field name="numero_economico"/>
                 </xpath>
-                <xpath expr="//field[@name='effective_date']" position="after" groups="mtto_confetex.group_documentos_mantenimiento">
-                    <field name="fecha_compra"/>
+                <xpath expr="//field[@name='effective_date']" position="after">
+                    <field name="fecha_compra" groups="mtto_confetex.group_documentos_mantenimiento"/>
                 </xpath>
                 <xpath expr="//field[@name='cost']" position="after">
                     <field name="id_currency"/>
                 </xpath>
                 <xpath expr="//field[@name='warranty_date']" position="after">
                     <field name="es_equipo_apoyo" widget="boolean_toggle"/>
+                </xpath>
+                <xpath expr="//field[@name='department_id']" position="after">
+                    <field name="propiedad_equipo" widget="radio" groups="mtto_confetex.group_documentos_mantenimiento"/>
                 </xpath>
                 <notebook position="inside">
                     <page string="Documentos" groups="mtto_confetex.group_documentos_mantenimiento">
