@@ -67,6 +67,13 @@
                         </div>
                     </button>
                 </div>
+                <xpath expr="//form//sheet" position="before">
+                    <header>
+                        <button string="Prestar equipo" type="object" name="prestar_equipo" class="oe_highlight" states="en_sitio"/>
+                        <button string="Ingresar equipo" type="object" name="ingresar_equipo" class="oe_highlight" states="en_prestamo"/>
+                        <field name="state" widget="statusbar" statusbar_visible="en_sitio,en_prestamo" statusbar_colors="{'KEY_IS_STATE':'VALUE_IS_COLOR'}"/>
+                    </header>
+                </xpath>
                 <xpath expr="//field[@name='category_id']" position="before">
                     <field name="codigo_interno"/>
                 </xpath>

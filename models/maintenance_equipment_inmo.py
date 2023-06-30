@@ -62,6 +62,23 @@ class MaintenanceEquipmentInmo(models.Model):
         ('contrato', 'Bajo contrato o arrendamiento'),
         ('prestada', 'Suministrado por foráneo'),
     ], required=False, copy=True, default='empresa')
+    state = fields.Selection(selection=[
+        ('en_sitio', 'En sitio'),
+        ('en_prestamo', 'En préstamo'),
+    ], default='en_sitio', string="Estado", tracking=True, copy=False)
+
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=80):
+        args = args or []
+        recs = self.browse()
+        if not recs:
+            recs = self.search(['|', '|', '|', '|',
+                                ('codigo_interno', operator, name),
+                                ('numero_economico', operator, name),
+                                ('model', operator, name),
+                                ('serial_no', operator, name),
+                                ('name', operator, name)] + args, limit=limit)
+        return recs.name_get()
 
     @api.model
     def create(self, values):
@@ -96,3 +113,9 @@ class MaintenanceEquipmentInmo(models.Model):
                 equipo_mantenimiento.usuario_reviso_id = self.env.uid
                 comentario_revision = equipo_mantenimiento.comentario_revision
                 equipo_mantenimiento.comentario_revision = comentario_revision + "\nRevisión física contable realizada desde formulario o listado de Máquinas y herramientas."
+
+    def prestar_equipo(self):
+        self.state = 'en_prestamo'
+
+    def ingresar_equipo(self):
+        self.state = 'en_sitio'

@@ -30,6 +30,7 @@
         'views/maintenance_equipment_document_type_vw.xml',
         'views/maintenance_equipment_invw.xml',
         'views/maintenance_equipment_review_vw.xml',
+        'views/maintenance_equipment_loan_vw.xml',
     ],
     'installable': True,
     'auto_install': False,

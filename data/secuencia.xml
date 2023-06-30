@@ -26,4 +26,16 @@
         <field name="company_id" eval="False"/>
     </record>
 
+    <record id="secuencia_prestamo_equipo_mantenimiento" model="ir.sequence">
+        <field name="name">Secuencia para préstamo del equipo de mantenimiento</field>
+        <field name="implementation">no_gap</field>
+        <field name="code">secuencia.prestamo.equipo.mantenimiento</field>
+        <field name="prefix">PTMMYE</field>
+        <field name="suffix"></field>
+        <field name="padding">6</field>
+        <field name="number_increment">1</field>
+        <field name="number_next_actual">1</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
 </odoo>

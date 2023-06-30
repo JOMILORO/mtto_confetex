@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+
+        <!-- Busquedas,filtros y agrupaciones para el modelo Prestamo del equipo de mantenimiento -->
+        <record id="view_maintenance_equipment_loan_search" model="ir.ui.view">
+            <field name="name">view.maintenance.equipment.loan.search</field>
+            <field name="model">maintenance.equipment.loan</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Folio" filter_domain="[('name', 'ilike', self)]"/>
+                    <filter name="estilos_archivados" string="Archivados" domain="[('active', '=', False)]"/>
+                    <filter name="mis_prestamos_maquinas" string="Mis préstamos" domain="[('create_uid', '=', uid)]"/>
+                    <filter name="salida_maquinas" string="Salidas" domain="[('tipo_movimiento', '=', 'salida')]"/>
+                    <filter name="entrada_maquinas" string="Entradas" domain="[('tipo_movimiento', '=', 'entrada')]"/>
+                    <group>
+                        <filter name="group_by_estado" string="Estado" context="{'group_by': 'state'}"/>
+                        <filter name="group_by_planta" string="Planta" context="{'group_by': 'planta_id'}"/>
+                        <filter name="group_by_tipo_movimiento" string="Tipo de movimiento" context="{'group_by': 'tipo_movimiento'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Formulario para el modelo Prestamo del equipo de mantenimiento -->
+        <record id="view_maintenance_equipment_loan_form" model="ir.ui.view">
+            <field name="name">view.maintenance.equipment.loan.form</field>
+            <field name="model">maintenance.equipment.loan</field>
+            <field name="arch" type="xml">
+                <form string="Formulario para préstamo de máquinas y herramienta">
+                    <header>
+                        <button string="Confirmar" type="object" name="confirmar_prestamo" class="oe_highlight" states="borrador"/>
+                        <button string="Autorizar" type="object" name="autorizar_prestamo" class="oe_highlight" states="confirmado"/>
+                        <button string="Cancelar" type="object" name="cancelar_prestamo" states="borrador,confirmado,autorizado"/>
+                        <field name="state" widget="statusbar" statusbar_visible="borrador,confirmado,autorizado" statusbar_colors="{'KEY_IS_STATE':'VALUE_IS_COLOR'}"/>
+                    </header>
+                    <sheet>
+                        <widget name="web_ribbon" title="Archivado" bg-color="bg-danger" attrs="{'invisible': [('active','=',True)]}"/>
+                        <field name="active" invisible="1"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group string="Información de la empresa">
+                            <group>
+                                <field name="tipo_movimiento" attrs="{'readonly': [('state','!=','borrador')]}"/>
+                                <field name="responsable_id" attrs="{'readonly': [('state','!=','borrador')]}" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="company_id" groups="base.group_multi_company" attrs="{'readonly': [('state','!=','borrador')]}" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="planta_id" attrs="{'readonly': [('state','!=','borrador')]}" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="ubicacion" attrs="{'readonly': [('state','not in',['borrador', 'confirmado'])]}"/>
+                            </group>
+                            <group>
+                                <field name="fecha_efectiva" attrs="{'readonly': [('state','not in',['borrador', 'confirmado'])]}"/>
+                                <field name="autoriza_user_id" attrs="{'readonly': [('state','!=','borrador')]}" options="{'no_create': True, 'no_open': True}"/>
+                            </group>
+                        </group>
+                        <group string="Información de la empresa foránea">
+                            <group>
+                                <field name="proveedor_id" attrs="{'readonly': [('state','not in',['borrador', 'confirmado'])]}" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="proveedor_ref" attrs="{'readonly': [('state','not in',['borrador', 'confirmado'])]}"/>
+                            </group>
+                            <group>
+                                <field name="responsable_foraneo" attrs="{'readonly': [('state','not in',['borrador', 'confirmado'])]}"/>
+                                <field name="ubicacio_foranea" attrs="{'readonly': [('state','not in',['borrador', 'confirmado'])]}"/>
+                            </group>
+                        </group>
+                        <separator string="Detalles"/>
+                        <notebook>
+                            <page string="Máquinas y herramientas">
+                                <field name="item_ids" attrs="{'readonly': [('state','!=','borrador')]}" style="padding: 10px;">
+                                    <tree editable="bottom">
+                                        <control>
+                                            <create name="add_product_control" string="Agregar un item"/>
+                                        </control>
+                                        <field name="name"/>
+                                        <field name="codigo_interno"/>
+                                        <field name="numero_economico"/>
+                                        <field name="model"/>
+                                        <field name="serial_no"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Concepto del préstamo" attrs="{'readonly': [('state','not in',['borrador', 'confirmado'])]}">
+                                <group>
+                                    <field name="nota" string="Descripción del movimiento"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+    </data>
+
+    <!-- Listado para el modelo Prestamo del equipo de mantenimiento -->
+    <record id="view_maintenance_equipment_loan_tree" model="ir.ui.view">
+        <field name="name">view.maintenance.equipment.loan.tree</field>
+        <field name="model">maintenance.equipment.loan</field>
+        <field name="arch" type="xml">
+            <tree string="Notas de préstamo de máquinas y herramientas">
+                <field name="name"/>
+                <field name="tipo_movimiento"/>
+                <field name="fecha_efectiva"/>
+                <field name="planta_id"/>
+                <field name="ubicacion"/>
+                <field name="responsable_id" optional="hide"/>
+                <field name="autoriza_user_id" optional="hide"/>
+                <field name="proveedor_id"/>
+                <field name="responsable_foraneo" optional="hide"/>
+                <field name="ubicacio_foranea" optional="hide"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'confirmado'"
+                       decoration-info="state == 'autorizado'"
+                       decoration-danger="state == 'cancelado'"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

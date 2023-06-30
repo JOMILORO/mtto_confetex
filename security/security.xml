@@ -9,4 +9,11 @@
         <field name="comment">El usuario podrá ver y modificar archivos desde Google Drive en Mantenimiento</field>
     </record>
 
+    <!-- Regla para el modelo Préstamo del equipo de mantenimiento -->
+    <record id="maintenance_equipment_loan_filter_company_rule" model="ir.rule">
+        <field name="name">Regla filtrar compañia en préstamo del equipo de mantenimiento</field>
+        <field name="model_id" ref="model_maintenance_equipment_loan"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
 </odoo>

@@ -30,6 +30,14 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <!-- Acción para Préstamos de equipos de mantenimiento -->
+    <record id="maintenance_equipment_loan_act_open_window" model="ir.actions.act_window">
+        <field name="name">Préstamo máquinas y herramientas</field>
+        <field name="res_model">maintenance.equipment.loan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context" eval="{'search_default_mis_prestamos_maquinas': 1}"/>
+    </record>
+
     <!-- Elementos de menú para modulo mtto_confetex -->
     <menuitem id="mh_canales_google_drive"
               name="Canales"
@@ -61,5 +69,10 @@
               sequence="32"
               groups="group_documentos_mantenimiento"
               action="maintenance_equipment_review_act_open_window"/>
-
+    <menuitem id="mv_prestamo_maquinas_herramientas"
+              name="Préstamo máquinas y herramientas"
+              parent="maintenance.menu_equipment_form"
+              sequence="33"
+              groups="maintenance.group_equipment_manager,base.group_user"
+              action="maintenance_equipment_loan_act_open_window"/>
 </odoo>
