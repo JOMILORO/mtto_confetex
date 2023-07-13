@@ -35,9 +35,14 @@
                            ('numero_economico', 'ilike', self)]"/>
                 </xpath>
                 <xpath expr="//filter[@name='available']" position="after">
+                    <separator/>
                     <filter string="Equipo bajo contrato" name="equipo_contrato" domain="[('propiedad_equipo', '=', 'contrato')]"/>
                     <filter string="Equipo de apoyo" name="es_equipo_apoyo" domain="[('es_equipo_apoyo', '=', True)]"/>
-                    <filter string="Equipo suministrado foráneo " name="equipo_foraneo" domain="[('propiedad_equipo', '=', 'prestada')]"/>
+                    <filter string="Equipo suministrado por foráneo " name="equipo_foraneo" domain="[('propiedad_equipo', '=', 'prestada')]"/>
+                    <separator/>
+                    <filter string="Equipo en sitio" name="equipo_en_sitio" domain="[('state', '=', 'en_sitio')]"/>
+                    <filter string="Equipo en préstamo" name="equipo_en_prestamo" domain="[('state', '=', 'en_prestamo')]"/>
+                    <separator/>
                     <filter string="Por inventariar" name="es_inventariable" domain="[('is_inventariado', '=', False)]"/>
                 </xpath>
                 <xpath expr="//filter[@name='category']" position="after">

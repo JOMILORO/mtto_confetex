@@ -32,8 +32,9 @@
                     <header>
                         <button string="Confirmar" type="object" name="confirmar_prestamo" class="oe_highlight" states="borrador"/>
                         <button string="Autorizar" type="object" name="autorizar_prestamo" class="oe_highlight" states="confirmado"/>
-                        <button string="Cancelar" type="object" name="cancelar_prestamo" states="borrador,confirmado,autorizado"/>
-                        <field name="state" widget="statusbar" statusbar_visible="borrador,confirmado,autorizado" statusbar_colors="{'KEY_IS_STATE':'VALUE_IS_COLOR'}"/>
+                        <button string="Cancelar" type="object" name="cancelar_prestamo"  class="oe_highlight" states="autorizado"/>
+                        <button string="Borrador" type="object" name="cambiar_borrador"  class="oe_highlight" states="cancelado"/>
+                        <field name="state" widget="statusbar" statusbar_visible="borrador,confirmado,autorizado,cancelado" statusbar_colors="{'KEY_IS_STATE':'VALUE_IS_COLOR'}"/>
                     </header>
                     <sheet>
                         <widget name="web_ribbon" title="Archivado" bg-color="bg-danger" attrs="{'invisible': [('active','=',True)]}"/>
@@ -53,13 +54,14 @@
                             </group>
                             <group>
                                 <field name="fecha_efectiva" attrs="{'readonly': [('state','not in',['borrador', 'confirmado'])]}"/>
-                                <field name="autoriza_user_id" attrs="{'readonly': [('state','!=','borrador')]}" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="fecha_autorizacion" attrs="{'invisible': [('state','!=','autorizado')]}"/>
+                                <field name="autoriza_user_id" attrs="{'invisible': [('state','!=','autorizado')]}" options="{'no_create': True, 'no_open': True}"/>
                             </group>
                         </group>
                         <group string="Información de la empresa foránea">
                             <group>
                                 <field name="proveedor_id" attrs="{'readonly': [('state','not in',['borrador', 'confirmado'])]}" options="{'no_create': True, 'no_open': True}"/>
-                                <field name="proveedor_ref" attrs="{'readonly': [('state','not in',['borrador', 'confirmado'])]}"/>
+                                <field name="proveedor_ref" attrs="{'readonly': [('state','not in',['borrador', 'confirmado'])], 'invisible': [('tipo_movimiento', '=', 'salida')]}"/>
                             </group>
                             <group>
                                 <field name="responsable_foraneo" attrs="{'readonly': [('state','not in',['borrador', 'confirmado'])]}"/>
@@ -79,6 +81,8 @@
                                         <field name="numero_economico"/>
                                         <field name="model"/>
                                         <field name="serial_no"/>
+                                        <field name="estado_equipo"/>
+                                        <field name="company_id" optional="hide"/>
                                     </tree>
                                 </field>
                             </page>
