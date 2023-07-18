@@ -22,6 +22,7 @@
         'data/acciones_servidor.xml',
         'data/conf_maintenance_mtto_confetex.xml',
         'data/secuencia.xml',
+        'wizard/maintenance_equipment_loan_wizard_vw.xml',
         'report/maintenance_reports.xml',
         'report/maintenance_templates.xml',
         'views/maintenance_equipment_menu_vw.xml',

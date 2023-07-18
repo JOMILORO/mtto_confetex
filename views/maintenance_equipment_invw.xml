@@ -19,6 +19,33 @@
             </field>
         </record>
 
+        <!-- Acción para el modelo Préstamo del equipo de mantenimiento utilizado en botón inteligente dentro
+         de jomiloro.equipment.form.inherit1.
+         Abre o muestra todas las entradas y salidas de un equipo de mantenimiento, por default muestra la vista tree -->
+        <record id="action_view_equipo_prestamo" model="ir.actions.act_window">
+            <field name="name">Préstamos</field>
+            <field name="res_model">maintenance.equipment.loan</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('item_ids.name', '=', active_id)]</field>
+            <field name="help" type="html">
+                <p>
+                    La salida de una máquina o herramienta es un préstamo a una persona o empresa, esta puede ser
+                    un proveedor, cliente o la misma empresa. Una entrada de una máquina o herramienta es la recepción
+                    en las instalaciones de la empresa de una máquina que estaba en préstamo.
+                </p>
+            </field>
+        </record>
+
+         <!-- Acción para abrir Wizard préstamo del equipo de mantenimiento  -->
+        <record id="maintenance_equipment_loan_open_wizard" model="ir.actions.act_window">
+            <field name="name">Crear préstamo</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">maintenance.equipment.loan.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_maintenance_equipment_loan_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
         <!-- Inherit search View to Modify it -->
         <record id="jomiloro_equipment_search_inherit1" model="ir.ui.view">
             <field name="name">jomiloro.equipment.search.inherit1</field>
@@ -71,12 +98,33 @@
                             </span>
                         </div>
                     </button>
+                    <button name="%(action_view_equipo_prestamo)d"
+                            class="oe_stat_button"
+                            icon="fa-eject"
+                            type="action">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="prestamo_maquina_numero"/>
+                            </span>
+                            <span class="o_stat_text">
+                                Préstamos
+                            </span>
+                        </div>
+                    </button>
                 </div>
                 <xpath expr="//form//sheet" position="before">
                     <header>
-                        <button string="Prestar equipo" type="object" name="prestar_equipo" class="oe_highlight" states="en_sitio"/>
-                        <button string="Ingresar equipo" type="object" name="ingresar_equipo" class="oe_highlight" states="en_prestamo"/>
-                        <field name="state" widget="statusbar" statusbar_visible="en_sitio,en_prestamo" statusbar_colors="{'KEY_IS_STATE':'VALUE_IS_COLOR'}"/>
+                        <button string="Prestar equipo"
+                                type="action"
+                                name="%(maintenance_equipment_loan_open_wizard)d"
+                                class="oe_highlight"
+                                states="en_sitio"/>
+                        <button string="Ingresar equipo"
+                                type="action"
+                                name="%(maintenance_equipment_loan_open_wizard)d"
+                                class="oe_highlight"
+                                states="en_prestamo"/>
+                        <field name="state" widget="statusbar" statusbar_visible="en_sitio,en_proceso,en_prestamo" statusbar_colors="{'KEY_IS_STATE':'VALUE_IS_COLOR'}"/>
                     </header>
                 </xpath>
                 <xpath expr="//field[@name='category_id']" position="before">

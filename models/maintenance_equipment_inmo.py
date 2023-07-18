@@ -14,6 +14,10 @@ class MaintenanceEquipmentInmo(models.Model):
         self.revisiones_numero = revisiones_fisicas_obj.search_count(
             [('equipo_mantenimiento_id', 'in', [a.id for a in self])])
 
+    def maintenance_equipment_loan_count(self):
+        prestamo_maquina_obj = self.env['maintenance.equipment.loan']
+        self.prestamo_maquina_numero = prestamo_maquina_obj.search_count([('item_ids.name', 'in', [a.id for a in self])])
+
     # Función para acción de servidor Equipo mantenimiento no inventariado
     def set_no_inventariado(self):
         for equipo in self:
@@ -64,8 +68,10 @@ class MaintenanceEquipmentInmo(models.Model):
     ], required=False, copy=True, default='empresa')
     state = fields.Selection(selection=[
         ('en_sitio', 'En sitio'),
+        ('en_proceso', 'En proceso'),
         ('en_prestamo', 'En préstamo'),
     ], default='en_sitio', string="Estado", tracking=True, copy=False)
+    prestamo_maquina_numero = fields.Integer(string='Préstamos', compute='maintenance_equipment_loan_count', required=False)
 
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=80):
@@ -113,9 +119,3 @@ class MaintenanceEquipmentInmo(models.Model):
                 equipo_mantenimiento.usuario_reviso_id = self.env.uid
                 comentario_revision = equipo_mantenimiento.comentario_revision
                 equipo_mantenimiento.comentario_revision = comentario_revision + "\nRevisión física contable realizada desde formulario o listado de Máquinas y herramientas."
-
-    def prestar_equipo(self):
-        self.state = 'en_prestamo'
-
-    def ingresar_equipo(self):
-        self.state = 'en_sitio'

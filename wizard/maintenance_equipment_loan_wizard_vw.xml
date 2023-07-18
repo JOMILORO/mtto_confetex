@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_maintenance_equipment_loan_wizard_form" model="ir.ui.view">
+            <field name="name">view.maintenance.equipment.loan.wizard.form</field>
+            <field name="model">maintenance.equipment.loan.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Crear préstamo">
+                    <div class="oe_title">
+                        <h3><field name="name"/></h3>
+                    </div>
+                    <group>
+                        <group string="Información de la empresa">
+                            <field name="tipo_movimiento"/>
+                            <field name="company_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="planta_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="ubicacion"/>
+                        </group>
+                        <group string="Información de la empresa foránea">
+                            <field name="proveedor_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="proveedor_ref" attrs="{'invisible': [('tipo_movimiento', '=', 'salida')]}"/>
+                            <field name="responsable_foraneo"/>
+                            <field name="ubicacio_foranea"/>
+                        </group>
+                    </group>
+                    <group string="Concepto del préstamo">
+                        <field name="nota"/>
+                    </group>
+                    <footer>
+                        <button name="crear_prestamo" type="object" string="Crear préstamo" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

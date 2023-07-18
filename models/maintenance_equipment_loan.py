@@ -104,22 +104,31 @@ class MaintenanceEquipmentLoan(models.Model):
         for equipo_prestamo in self.item_ids:
             maquina_herramienta = self.env['maintenance.equipment'].browse(equipo_prestamo.name.id)
             if maquina_herramienta:
+                nota = ""
                 if self.tipo_movimiento == 'salida':
-                    nota = maquina_herramienta.note + "\nMáquina o herramienta prestada con folio: " + self.name + \
-                           " el " + str(self.fecha_efectiva)
+                    if maquina_herramienta.note:
+                        nota = maquina_herramienta.note + "\nMáquina o herramienta en préstamo con folio: " + \
+                               self.name + " con fecha " + str(self.fecha_efectiva)
+                    else:
+                        nota = "Máquina o herramienta en préstamo con folio: " + self.name + " con fecha " + \
+                               str(self.fecha_efectiva)
                     maquina_herramienta.write({
                         'location': self.ubicacio_foranea or False,
                         'state': 'en_prestamo',
-                        'note': nota
+                        'note': nota or False
                     })
                 if self.tipo_movimiento == 'entrada':
-                    nota = maquina_herramienta.note + "\nMáquina o herramienta ingresada con folio: " + self.name + \
-                           " el " + str(self.fecha_efectiva)
+                    if maquina_herramienta.note:
+                        nota = maquina_herramienta.note + "\nMáquina o herramienta ingresada con folio: " + \
+                               self.name + " con fecha " + str(self.fecha_efectiva)
+                    else:
+                        nota = "Máquina o herramienta ingresada con folio: " + self.name + " con fecha " + \
+                               str(self.fecha_efectiva)
                     maquina_herramienta.write({
                         'location': self.ubicacion or False,
                         'state': 'en_sitio',
                         'category_id': self.planta_id.id,
-                        'note': nota
+                        'note': nota or False
                     })
         self.fecha_autorizacion = fields.datetime.now()
         self.autoriza_user_id = self.env.uid
@@ -130,23 +139,32 @@ class MaintenanceEquipmentLoan(models.Model):
         for equipo_prestamo in self.item_ids:
             maquina_herramienta = self.env['maintenance.equipment'].browse(equipo_prestamo.name.id)
             if maquina_herramienta:
+                nota = ""
                 estado_maquina = maquina_herramienta.state
                 if self.tipo_movimiento == 'salida' and estado_maquina != 'en_sitio':
-                    nota = maquina_herramienta.note + "\nSalida, préstamo máquina o herramienta con folio: " + \
-                           self.name + " cancelado el " + str(self.fecha_efectiva)
+                    if maquina_herramienta.note:
+                        nota = maquina_herramienta.note + "\nMáquina o herramienta en préstamo cancelado con folio: " + \
+                               self.name + " con fecha " + str(self.fecha_efectiva)
+                    else:
+                        nota = "Máquina o herramienta en préstamo cancelado con folio: " + self.name + " con fecha " + \
+                               str(self.fecha_efectiva)
                     maquina_herramienta.write({
                         'location': self.ubicacion or False,
                         'state': 'en_sitio',
-                        'note': nota
+                        'note': nota or False
                     })
                 if self.tipo_movimiento == 'entrada' and estado_maquina != 'en_prestamo':
-                    nota = maquina_herramienta.note + "\nEntrada, préstamo máquina o herramienta con folio: " + \
-                           self.name + " cancelado el " + str(self.fecha_efectiva)
+                    if maquina_herramienta.note:
+                        nota = maquina_herramienta.note + "\nMáquina o herramienta ingresada cancelado con folio: " + \
+                               self.name + " con fecha " + str(self.fecha_efectiva)
+                    else:
+                        nota = "Máquina o herramienta ingresada cancelado con folio: " + self.name + " con fecha " + \
+                               str(self.fecha_efectiva)
                     maquina_herramienta.write({
                         'location': self.ubicacio_foranea or False,
                         'state': 'en_prestamo',
                         'category_id': self.planta_id.id,
-                        'note': nota
+                        'note': nota or False
                     })
         self.state = 'cancelado'
 
