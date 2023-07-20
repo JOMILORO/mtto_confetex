@@ -11,12 +11,15 @@
                 <search>
                     <field name="name" string="Folio" filter_domain="[('name', 'ilike', self)]"/>
                     <filter name="estilos_archivados" string="Archivados" domain="[('active', '=', False)]"/>
-                    <filter name="mis_prestamos_maquinas" string="Mis préstamos" domain="[('create_uid', '=', uid)]"/>
+                    <filter name="mis_prestamos_maquinas" string="Mis préstamos" domain="['&amp;',('create_uid', '=', uid), ('tipo_movimiento', '=', 'salida')]"/>
+                    <filter name="mis_entradas_maquinas" string="Mis entradas" domain="['&amp;',('create_uid', '=', uid), ('tipo_movimiento', '=', 'entrada')]"/>
                     <filter name="salida_maquinas" string="Salidas" domain="[('tipo_movimiento', '=', 'salida')]"/>
                     <filter name="entrada_maquinas" string="Entradas" domain="[('tipo_movimiento', '=', 'entrada')]"/>
+                    <filter name="confirmar_prestamo" string="Confirmar préstamo" domain="[('state', 'in', ['borrador','confirmado'])]"/>
                     <group>
                         <filter name="group_by_estado" string="Estado" context="{'group_by': 'state'}"/>
-                        <filter name="group_by_planta" string="Planta" context="{'group_by': 'planta_id'}"/>
+                        <filter name="group_by_category" string="Categoría" context="{'group_by': 'category_id'}"/>
+                        <filter name="group_by_department" string="Departamento" context="{'group_by': 'department_id'}"/>
                         <filter name="group_by_tipo_movimiento" string="Tipo de movimiento" context="{'group_by': 'tipo_movimiento'}"/>
                     </group>
                 </search>
@@ -33,7 +36,7 @@
                         <button string="Confirmar" type="object" name="confirmar_prestamo" class="oe_highlight" states="borrador"/>
                         <button string="Autorizar" type="object" name="autorizar_prestamo" class="oe_highlight" states="confirmado"/>
                         <button string="Cancelar" type="object" name="cancelar_prestamo"  class="oe_highlight" states="autorizado"/>
-                        <button string="Borrador" type="object" name="cambiar_borrador"  class="oe_highlight" states="cancelado"/>
+                        <button string="Borrador" type="object" name="cambiar_borrador" states="confirmado"/>
                         <field name="state" widget="statusbar" statusbar_visible="borrador,confirmado,autorizado,cancelado" statusbar_colors="{'KEY_IS_STATE':'VALUE_IS_COLOR'}"/>
                     </header>
                     <sheet>
@@ -49,7 +52,8 @@
                                 <field name="tipo_movimiento" attrs="{'readonly': [('state','!=','borrador')]}"/>
                                 <field name="responsable_id" attrs="{'readonly': [('state','!=','borrador')]}" options="{'no_create': True, 'no_open': True}"/>
                                 <field name="company_id" groups="base.group_multi_company" attrs="{'readonly': [('state','!=','borrador')]}" options="{'no_create': True, 'no_open': True}"/>
-                                <field name="planta_id" attrs="{'readonly': [('state','!=','borrador')]}" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="category_id" attrs="{'readonly': [('state','!=','borrador')]}" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="department_id" attrs="{'readonly': [('state','!=','borrador')]}" options="{'no_create': True, 'no_open': True}"/>
                                 <field name="ubicacion" attrs="{'readonly': [('state','not in',['borrador', 'confirmado'])]}"/>
                             </group>
                             <group>
@@ -112,7 +116,8 @@
                 <field name="name"/>
                 <field name="tipo_movimiento"/>
                 <field name="fecha_efectiva"/>
-                <field name="planta_id"/>
+                <field name="category_id" optional="hide"/>
+                <field name="department_id"/>
                 <field name="ubicacion"/>
                 <field name="responsable_id" optional="hide"/>
                 <field name="autoriza_user_id" optional="hide"/>

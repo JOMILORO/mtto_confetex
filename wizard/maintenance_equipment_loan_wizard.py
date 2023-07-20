@@ -32,12 +32,12 @@ class MaintenanceEquipmentLoanWizard(models.TransientModel):
         else:
             return lambda self: self.env.company
 
-    def get_planta_id(self):
+    def get_category_id(self):
         ctx = dict(self._context or {})
         active_id = ctx.get('active_id')
         maquina_herramienta_brw = self.env['maintenance.equipment'].browse(active_id)
-        planta_id = maquina_herramienta_brw.category_id.id
-        return planta_id
+        category_id = maquina_herramienta_brw.category_id.id
+        return category_id
 
     def get_ubicacion(self):
         ctx = dict(self._context or {})
@@ -48,6 +48,13 @@ class MaintenanceEquipmentLoanWizard(models.TransientModel):
         if state == 'en_sitio':
             location = maquina_herramienta_brw.location
         return location
+
+    def get_department_id(self):
+        ctx = dict(self._context or {})
+        active_id = ctx.get('active_id')
+        maquina_herramienta_brw = self.env['maintenance.equipment'].browse(active_id)
+        department_id = maquina_herramienta_brw.department_id.id
+        return department_id
 
     name = fields.Char(string="Nombre", readonly=True, required=True, copy=False,
                        default='Nuevo préstamo máquinas y herramientas')
@@ -63,10 +70,11 @@ class MaintenanceEquipmentLoanWizard(models.TransientModel):
         required=True,
         copy=False
     )
-    planta_id = fields.Many2one(
+    # Agregar poner categoria_id el 23-07-2023
+    category_id = fields.Many2one(
         comodel_name='maintenance.equipment.category',
-        default=get_planta_id,
-        string="Planta",
+        default=get_category_id,
+        string="Categoría",
         readonly=True,
         required=True,
         copy=False
@@ -82,6 +90,13 @@ class MaintenanceEquipmentLoanWizard(models.TransientModel):
     responsable_foraneo = fields.Char(string="Responsable foráneo", copy=False)
     ubicacio_foranea = fields.Char(string='Ubicación foránea', copy=False)
     nota = fields.Text(string="Anotaciones", required=False)
+    department_id = fields.Many2one(
+        comodel_name='hr.department',
+        default=get_department_id,
+        string="Departamento",
+        readonly=True,
+        copy=False
+    )
 
     def crear_prestamo(self):
         logger.info("********** Entramos al método crear_prestamo *********")
@@ -96,7 +111,8 @@ class MaintenanceEquipmentLoanWizard(models.TransientModel):
             vals = {
                 'tipo_movimiento': self.tipo_movimiento,
                 'company_id': self.company_id.id,
-                'planta_id': self.planta_id.id,
+                'category_id': self.category_id.id,
+                'department_id': self.department_id or False,
                 'ubicacion': self.ubicacion,
                 'proveedor_id': self.proveedor_id.id,
                 'proveedor_ref': self.proveedor_ref,

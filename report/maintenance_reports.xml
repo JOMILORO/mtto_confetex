@@ -38,5 +38,17 @@
             <field name="groups_id" eval="[(4, ref('group_documentos_mantenimiento'))]"/>
         </record>
 
+        <record id="report_equipment_loan" model="ir.actions.report">
+            <field name="name">Préstamos</field>
+            <field name="model">maintenance.equipment.loan</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">mtto_confetex.report_equipmentloan</field>
+            <field name="report_file">mtto_confetex.report_equipmentloan</field>
+            <field name="print_report_name">'Préstamos de máquinas y herramientas - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_maintenance_equipment_loan"/>
+            <field name="binding_type">report</field>
+            <field name="groups_id" eval="[(4, ref('maintenance.group_equipment_manager')), (4, ref('base.group_user'))]"/>
+        </record>
+
     </data>
 </odoo>

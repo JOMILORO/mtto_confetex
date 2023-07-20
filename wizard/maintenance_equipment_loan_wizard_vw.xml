@@ -13,7 +13,8 @@
                         <group string="Información de la empresa">
                             <field name="tipo_movimiento"/>
                             <field name="company_id" options="{'no_create': True, 'no_open': True}"/>
-                            <field name="planta_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="category_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="department_id" options="{'no_create': True, 'no_open': True}"/>
                             <field name="ubicacion"/>
                         </group>
                         <group string="Información de la empresa foránea">

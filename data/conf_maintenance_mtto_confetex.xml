@@ -49,13 +49,13 @@
 
     <!-- Categoría de canal de Google Drive -->
     <record id="maintenance_channel_gd_category_1" model="maintenance.channel.gd.category">
-        <field name="name">CONFECCION</field>
+        <field name="name">Equipos de confección</field>
     </record>
     <record id="maintenance_channel_gd_category_2" model="maintenance.channel.gd.category">
-        <field name="name">LAVANDERIA</field>
+        <field name="name">Equipos industriales y lavado</field>
     </record>
     <record id="maintenance_channel_gd_category_3" model="maintenance.channel.gd.category">
-        <field name="name">TECNOLOGIAS DE LA INFORMACION</field>
+        <field name="name">Equipos de cómputo</field>
     </record>
 
     <!-- Canales Google Drive -->
@@ -119,20 +119,20 @@
 
     <!-- Categorías de equipamiento -->
     <record id="maintenance_equipment_category_1" model="maintenance.equipment.category">
-        <field name="name">MAQUINA OVER</field>
-        <field name="alias_name">maquinas-over</field>
+        <field name="name">Equipos de confección</field>
+        <field name="alias_name">equipo-confeccion</field>
     </record>
     <record id="maintenance_equipment_category_2" model="maintenance.equipment.category">
-        <field name="name">MAQUINA RECTA</field>
-        <field name="alias_name">maquina-recta</field>
+        <field name="name">Equipos industriales y lavado</field>
+        <field name="alias_name">equipo-industrial-lavado</field>
     </record>
     <record id="maintenance_equipment_category_3" model="maintenance.equipment.category">
-        <field name="name">MAQUINA 2 AGUJAS</field>
-        <field name="alias_name">maquina-2-agujas</field>
+        <field name="name">Equipos de cómputo</field>
+        <field name="alias_name">equipo-computo</field>
     </record>
     <record id="maintenance_equipment_category_4" model="maintenance.equipment.category">
-        <field name="name">MAQUINA DE CUADRO</field>
-        <field name="alias_name">maquina-de-cuadro</field>
+        <field name="name">Equipos para bordado</field>
+        <field name="alias_name">equipo-bordado</field>
     </record>
 
 </odoo>

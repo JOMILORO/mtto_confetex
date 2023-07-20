@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 class MaintenanceEquipmentLoan(models.Model):
     _name = 'maintenance.equipment.loan'
     _description = "Préstamo del equipo de mantenimiento"
-    _order = 'name'
+    _order = 'name desc'
     _inherit = ['mail.thread', 'mail.activity.mixin', 'image.mixin']
 
     name = fields.Char(string="Folio", index=True, copy=False, readonly=True,
@@ -26,9 +26,10 @@ class MaintenanceEquipmentLoan(models.Model):
         ('salida', 'Salida'),
         ('entrada', 'Entrada'),
     ], required=True, default='salida', string="Tipo de movimiento", copy=False)
-    planta_id = fields.Many2one(
+    # Se agrego campo campo category_id el 20/07/2023
+    category_id = fields.Many2one(
         comodel_name='maintenance.equipment.category',
-        string="Planta",
+        string="Categoría",
         tracking=True,
         copy=True
     )
@@ -66,6 +67,12 @@ class MaintenanceEquipmentLoan(models.Model):
     )
     company_id = fields.Many2one('res.company', string='Compañía', default=lambda self: self.env.company, tracking=True)
     fecha_autorizacion = fields.Datetime(string="Fecha autorización", required=False, readonly=True)
+    department_id = fields.Many2one(
+        comodel_name='hr.department',
+        readonly=False,
+        string='Departamento',
+        tracking=True
+    )
 
     @api.model
     def create(self, values):
@@ -95,44 +102,73 @@ class MaintenanceEquipmentLoan(models.Model):
                         raise UserError('No se puede ingresar una máquina o herramienta si su estado esta: En sitio.' +
                                         '\nFavor de verificar máquina o herramienta con código interno:' +
                                         maquina_herramienta.codigo_interno)
+                if maquina_herramienta.state != 'en_proceso':
+                    maquina_herramienta.write({
+                        'state': 'en_proceso'
+                    })
             self.state = 'confirmado'
         else:
             raise UserError('Aún no ha ingresado por lo menos una máquina o herramienta.')
 
     def autorizar_prestamo(self):
         logger.info("Entramos al método autorizar_prestamo")
+        actulizar_estado = True
+        mensaje_error = False
         for equipo_prestamo in self.item_ids:
             maquina_herramienta = self.env['maintenance.equipment'].browse(equipo_prestamo.name.id)
             if maquina_herramienta:
                 nota = ""
                 if self.tipo_movimiento == 'salida':
-                    if maquina_herramienta.note:
-                        nota = maquina_herramienta.note + "\nMáquina o herramienta en préstamo con folio: " + \
-                               self.name + " con fecha " + str(self.fecha_efectiva)
+                    if maquina_herramienta.state == 'en_proceso':
+                        if maquina_herramienta.note:
+                            nota = maquina_herramienta.note + "\nMáquina o herramienta en préstamo con folio: " + \
+                                self.name + " con fecha " + str(self.fecha_efectiva)
+                        else:
+                            nota = "Máquina o herramienta en préstamo con folio: " + self.name + " con fecha " + \
+                                str(self.fecha_efectiva)
+                        maquina_herramienta.write({
+                            'location': self.ubicacio_foranea or False,
+                            'state': 'en_prestamo',
+                            'note': nota or False
+                        })
                     else:
-                        nota = "Máquina o herramienta en préstamo con folio: " + self.name + " con fecha " + \
-                               str(self.fecha_efectiva)
-                    maquina_herramienta.write({
-                        'location': self.ubicacio_foranea or False,
-                        'state': 'en_prestamo',
-                        'note': nota or False
-                    })
+                        if mensaje_error:
+                            mensaje_error = mensaje_error + "\nMáquina o herramienta con código interno: " + \
+                                            maquina_herramienta.codigo_interno + " tiene un estado diferente a En proceso"
+                        else:
+                            mensaje_error = "Máquina o herramienta con código interno: " + \
+                                            maquina_herramienta.codigo_interno + " tiene un estado diferente a En proceso"
+                        actulizar_estado = False
                 if self.tipo_movimiento == 'entrada':
-                    if maquina_herramienta.note:
-                        nota = maquina_herramienta.note + "\nMáquina o herramienta ingresada con folio: " + \
-                               self.name + " con fecha " + str(self.fecha_efectiva)
+                    if maquina_herramienta.state == 'en_proceso':
+                        if maquina_herramienta.note:
+                            nota = maquina_herramienta.note + "\nMáquina o herramienta ingresada con folio: " + \
+                                self.name + " con fecha " + str(self.fecha_efectiva)
+                        else:
+                            nota = "Máquina o herramienta ingresada con folio: " + self.name + " con fecha " + \
+                                str(self.fecha_efectiva)
+                        maquina_herramienta.write({
+                            'location': self.ubicacion or False,
+                            'state': 'en_sitio',
+                            'category_id': self.category_id.id or False,
+                            'department_id': self.department_id.id,
+                            'note': nota or False
+                        })
                     else:
-                        nota = "Máquina o herramienta ingresada con folio: " + self.name + " con fecha " + \
-                               str(self.fecha_efectiva)
-                    maquina_herramienta.write({
-                        'location': self.ubicacion or False,
-                        'state': 'en_sitio',
-                        'category_id': self.planta_id.id,
-                        'note': nota or False
-                    })
-        self.fecha_autorizacion = fields.datetime.now()
-        self.autoriza_user_id = self.env.uid
-        self.state = 'autorizado'
+                        if mensaje_error:
+                            mensaje_error = mensaje_error + "\nMáquina o herramienta con código interno: " + \
+                                            maquina_herramienta.codigo_interno + " tiene un estado diferente a En proceso"
+                        else:
+                            mensaje_error = "Máquina o herramienta con código interno: " + \
+                                            maquina_herramienta.codigo_interno + " tiene un estado diferente a En proceso"
+                        actulizar_estado = False
+        if actulizar_estado:
+            self.fecha_autorizacion = fields.datetime.now()
+            self.autoriza_user_id = self.env.uid
+            self.state = 'autorizado'
+        else:
+            raise UserError("No se puede autorizar préstamos de máquinas o herramientas si su estado es diferente de " +
+                            "En proceso por favor verifique los siguientes equipo:\n" + mensaje_error)
 
     def cancelar_prestamo(self):
         logger.info("Entramos al método cancelar_prestamo")
@@ -163,7 +199,8 @@ class MaintenanceEquipmentLoan(models.Model):
                     maquina_herramienta.write({
                         'location': self.ubicacio_foranea or False,
                         'state': 'en_prestamo',
-                        'category_id': self.planta_id.id,
+                        'category_id': self.category_id.id or False,
+                        'department_id': self.department_id.id,
                         'note': nota or False
                     })
         self.state = 'cancelado'

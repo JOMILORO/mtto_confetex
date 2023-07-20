@@ -27,6 +27,7 @@
             <field name="res_model">maintenance.equipment.loan</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[('item_ids.name', '=', active_id)]</field>
+            <field name="context">{'search_default_confirmar_prestamo': 1}</field>
             <field name="help" type="html">
                 <p>
                     La salida de una máquina o herramienta es un préstamo a una persona o empresa, esta puede ser
@@ -68,6 +69,7 @@
                     <filter string="Equipo suministrado por foráneo " name="equipo_foraneo" domain="[('propiedad_equipo', '=', 'prestada')]"/>
                     <separator/>
                     <filter string="Equipo en sitio" name="equipo_en_sitio" domain="[('state', '=', 'en_sitio')]"/>
+                    <filter string="Equipo en proceso" name="equipo_en_proceso" domain="[('state', '=', 'en_proceso')]"/>
                     <filter string="Equipo en préstamo" name="equipo_en_prestamo" domain="[('state', '=', 'en_prestamo')]"/>
                     <separator/>
                     <filter string="Por inventariar" name="es_inventariable" domain="[('is_inventariado', '=', False)]"/>
@@ -225,6 +227,12 @@
                     <field name="is_inventariado" invisible="True"/>
                     <button string="Inventariar" name="inventariar_equipo_mantenimiento" type="object" icon="fa-check" attrs="{'invisible':[('is_inventariado', '=', True)]}"/>
                 </xpath>
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="state" widget="badge"
+                           decoration-success="state == 'en_sitio'"
+                           decoration-info="state == 'en_prestamo'"
+                           decoration-danger="state == 'en_proceso'"/>
+                </xpath>
                 <xpath expr="//field[@name='name']" position="before">
                     <field name="codigo_interno"/>
                     <field name="numero_economico" optional="show"/>
@@ -244,6 +252,7 @@
                     <field name="codigo_interno"/>
                     <field name="is_inventariado"/>
                     <field name="es_equipo_apoyo"/>
+                    <field name="state"/>
                 </xpath>
                 <xpath expr="//div[@class='o_kanban_record_top']" position="before">
                     <div t-if="record.codigo_interno.value">
@@ -251,6 +260,15 @@
                     </div>
                 </xpath>
                 <xpath expr="//div[@class='o_kanban_inline_block']" position="before">
+                    <span attrs="{'invisible':[('state', 'in', ['en_proceso','en_prestamo'])]}" class="badge badge-pill badge-success">
+                        En sitio
+                    </span>
+                    <span attrs="{'invisible':[('state', 'in', ['en_sitio','en_prestamo'])]}" class="badge badge-pill badge-danger">
+                        En proceso
+                    </span>
+                    <span attrs="{'invisible':[('state', 'in', ['en_sitio','en_proceso'])]}" class="badge badge-pill badge-info">
+                        En préstamo
+                    </span>
                     <span attrs="{'invisible':[('es_equipo_apoyo', '=', False)]}" class="badge badge-pill badge-warning">
                         Equipo de apoyo
                     </span>

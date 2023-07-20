@@ -240,5 +240,153 @@
             </t>
         </template>
 
+        <!-- Plantilla para el reporte de notas de entrada y salida en Préstamo del equipo de mantenimiento -->
+        <template id="report_equipment_loan_template">
+            <t t-call="web.external_layout">
+                <div class="page" style="font-size:16px">
+                    <div class="oe_structure"/>
+                    <div id="folio-prestamo-maquina-herramienta" class="row mt32 mb32">
+                        <div id="titulo_prestamo" class="col-9 bm-2">
+                            <h2 t-if="doc.state == 'borrador'">
+                                BORRADOR DE NOTA DE <span t-field="doc.tipo_movimiento"/> DE MÁQUINAS Y HERRAMIENTAS
+                            </h2>
+                            <h2 t-if="doc.state == 'confirmado'">
+                                CONFIRMACIÓN DE NOTA DE <span t-field="doc.tipo_movimiento"/> EN MÁQUINAS Y HERRAMIENTAS
+                            </h2>
+                            <h2 t-if="doc.state == 'autorizado'">
+                                AUTORIZACIÓN DE NOTA DE <span t-field="doc.tipo_movimiento"/> EN MÁQUINAS Y HERRAMIENTAS
+                            </h2>
+                            <h2 t-if="doc.state == 'cancelado'">
+                                CANCELACIÓN DE NOTA DE <span t-field="doc.tipo_movimiento"/> EN MÁQUINAS Y HERRAMIENTAS
+                            </h2>
+                        </div>
+                        <div t-if="doc.name" id="codigo_barras_prestamo" class="col-3 bm-2 text-center align-middle">
+                            <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', doc.name, 600, 150)" style="width:100%;height:4rem" alt="Barcode"/>
+                            <span t-field="doc.name"/>
+                        </div>
+                    </div>
+                    <br/>
+                    <div id="informacion-remitente-fila-1" class="row mt32 mb32">
+                        <div t-if="doc.company_id" class="col-7 bm-2">
+                            <strong>Compañía:</strong>
+                            <p t-field="doc.company_id" class="m-0"/>
+                        </div>
+                        <div t-if="doc.category_id" class="col-5 bm-2">
+                            <strong>Categoría:</strong>
+                            <p t-field="doc.category_id" class="m-0"/>
+                        </div>
+                        <div t-if="doc.ubicacion" class="col-4 bm-2">
+                            <strong>Ubicación:</strong>
+                            <p t-field="doc.ubicacion" class="m-0"/>
+                        </div>
+                        <div t-if="doc.department_id" class="col-4 bm-2">
+                            <strong>Planta:</strong>
+                            <p t-field="doc.department_id" class="m-0"/>
+                        </div>
+                        <div t-if="doc.fecha_efectiva" class="col-4 bm-2">
+                            <strong>Fecha:</strong>
+                            <p t-field="doc.fecha_efectiva" class="m-0"/>
+                        </div>
+                    </div>
+                    <br/>
+                    <div id="informacion-destinatario-fila-1" class="row mt32 mb32">
+                        <div t-if="doc.proveedor_id" class="col-7 bm-2">
+                            <strong>Proveedor:</strong>
+                            <p t-field="doc.proveedor_id" class="m-0"/>
+                        </div>
+                        <div t-if="doc.ubicacio_foranea" class="col-5 bm-2">
+                            <strong>Ubicación foránea:</strong>
+                            <p t-field="doc.ubicacio_foranea" class="m-0"/>
+                        </div>
+                    </div>
+                    <br/>
+                    <div id="concepto-prestamo" class="row mt32 mb32">
+                        <div t-if="doc.nota" class="col-12 bm-2">
+                            <strong>Concepto del préstamo:</strong>
+                            <p t-field="doc.nota" class="m-0"/>
+                        </div>
+                    </div>
+                    <br/>
+                    <table class="table table-sm o_main_table">
+                        <thead>
+                            <tr>
+                                <th name="th_movimiento" class="text-center"><strong>Movimiento</strong></th>
+                                <th name="th_cantidad" class="text-center"><strong>Cantidad</strong></th>
+                                <th name="th_uom" class="text-center"><strong>Unidad</strong></th>
+                                <th name="descripción" class="text-center"><strong>Descripción del artículo</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="cdt_lineas" t-value="0"/>
+                            <t t-foreach="doc.item_ids" t-as="linea">
+                                <tr>
+                                    <t t-set="cdt_lineas" t-value="cdt_lineas+1"/>
+                                    <td id="numero_mov" class="text-center">
+                                        <span>
+                                            <t t-esc="cdt_lineas"/>
+                                        </span>
+                                    </td>
+                                    <td id="cantidad-captura" class="text-center">
+                                        <span>1</span>
+                                    </td>
+                                    <td id="uom" class="text-center">
+                                        <span>Equipo</span>
+                                    </td>
+                                    <td id="descripcion">
+                                        <span t-field="linea.name"/>
+                                        <br/>
+                                        Código interno <span t-field="linea.codigo_interno"/>,
+                                        <span t-if="linea.numero_economico">
+                                            número económico <span t-field="linea.numero_economico"/>,
+                                        </span>
+                                        <span t-if="linea.model">
+                                            modelo <span t-field="linea.model"/>,
+                                        </span>
+                                        <span t-if="linea.serial_no">
+                                            número de serie <span t-field="linea.serial_no"/>,
+                                        </span>
+                                        estado de la máquina o herramienta <span t-field="linea.estado_equipo"/>.
+                                        <div t-if="linea.codigo_interno" class="col-5 bm-2">
+                                            <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', linea.codigo_interno, 600, 150)" style="width:100%;height:4rem" alt="Barcode"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <div id="firma" class="row" style="padding-top:50px;">
+                        <div t-if="doc.responsable_foraneo" class="col-4 bm-2">
+                            <strong>Recibí mercancía:</strong>
+                            <br/>
+                            <br/>
+                            <p t-field="doc.responsable_foraneo" class="m-0"/>
+                        </div>
+                        <div t-if="doc.autoriza_user_id" class="col-4 bm-2">
+                            <strong>Autorizo:</strong>
+                            <br/>
+                            <br/>
+                            <p t-field="doc.autoriza_user_id" class="m-0"/>
+                        </div>
+                        <div t-if="doc.responsable_id" class="col-4 bm-2">
+                            <strong>Entrego:</strong>
+                            <br/>
+                            <br/>
+                            <p t-field="doc.responsable_id" class="m-0"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_equipmentloan">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="mtto_confetex.report_equipment_loan_template">
+                        <t t-set="doc" t-value="doc"/>
+                    </t>
+                </t>
+            </t>
+        </template>
+
     </data>
 </odoo>
