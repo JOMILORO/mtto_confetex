@@ -142,13 +142,15 @@
                             <strong>Usado por: </strong><span t-field="doc.equipment_assign_to"/><br/>
                             <strong>Empleado: </strong><span t-field="doc.employee_id"/><br/>
                             <strong>Departamento: </strong><span t-field="doc.department_id"/><br/>
-                            <strong>Sección: </strong><span t-field="doc.id_seccion"/>
+                            <strong>Tipo equipo: </strong><span t-field="doc.propiedad_equipo"/><br/>
+                            <strong>Kit: </strong><span t-field="doc.es_kit"/>
                         </div>
                         <div id="informacion-general-b" class="col-6 bm-2">
                             <strong>Equipo de mantenimiento: </strong><span t-field="doc.maintenance_team_id"/><br/>
                             <strong>Técnico: </strong><span t-field="doc.technician_user_id"/><br/>
                             <strong>Fecha asignada: </strong><span t-field="doc.assign_date"/><br/>
                             <strong>Fecha de deshecho: </strong><span t-field="doc.scrap_date"/><br/>
+                            <strong>Sección: </strong><span t-field="doc.id_seccion"/><br/>
                             <strong>Usado en la ubicación: </strong><span t-field="doc.location"/>
                         </div>
                     </div>
@@ -167,6 +169,7 @@
                             <strong>Coste: $</strong><span t-field="doc.cost"/><br/>
                             <strong>Moneda: </strong><span t-field="doc.id_currency"/><br/>
                             <strong>Fecha en la que expira la garantía: </strong><span t-field="doc.warranty_date"/>
+                            <strong>Equipo de apoyo: </strong><span t-field="doc.es_equipo_apoyo"/>
                         </div>
                     </div>
                     <br/>
@@ -243,21 +246,21 @@
         <!-- Plantilla para el reporte de notas de entrada y salida en Préstamo del equipo de mantenimiento -->
         <template id="report_equipment_loan_template">
             <t t-call="web.external_layout">
-                <div class="page" style="font-size:16px">
+                <div class="page">
                     <div class="oe_structure"/>
                     <div id="folio-prestamo-maquina-herramienta" class="row mt32 mb32">
                         <div id="titulo_prestamo" class="col-9 bm-2">
                             <h2 t-if="doc.state == 'borrador'">
-                                BORRADOR DE NOTA DE <span t-field="doc.tipo_movimiento"/> DE MÁQUINAS Y HERRAMIENTAS
+                                Borrador nota de <span t-field="doc.tipo_movimiento"/> de máquinas y herramientas
                             </h2>
                             <h2 t-if="doc.state == 'confirmado'">
-                                CONFIRMACIÓN DE NOTA DE <span t-field="doc.tipo_movimiento"/> EN MÁQUINAS Y HERRAMIENTAS
+                                Confirmación nota de <span t-field="doc.tipo_movimiento"/> de máquinas y herramientas
                             </h2>
                             <h2 t-if="doc.state == 'autorizado'">
-                                AUTORIZACIÓN DE NOTA DE <span t-field="doc.tipo_movimiento"/> EN MÁQUINAS Y HERRAMIENTAS
+                                Autorización nota de <span t-field="doc.tipo_movimiento"/> de máquinas y herramientas
                             </h2>
                             <h2 t-if="doc.state == 'cancelado'">
-                                CANCELACIÓN DE NOTA DE <span t-field="doc.tipo_movimiento"/> EN MÁQUINAS Y HERRAMIENTAS
+                                Cancelación nota de <span t-field="doc.tipo_movimiento"/> de máquinas y herramientas
                             </h2>
                         </div>
                         <div t-if="doc.name" id="codigo_barras_prestamo" class="col-3 bm-2 text-center align-middle">
@@ -275,6 +278,8 @@
                             <strong>Categoría:</strong>
                             <p t-field="doc.category_id" class="m-0"/>
                         </div>
+                    </div>
+                    <div id="informacion-remitente-fila-2" class="row mt32 mb32">
                         <div t-if="doc.ubicacion" class="col-4 bm-2">
                             <strong>Ubicación:</strong>
                             <p t-field="doc.ubicacion" class="m-0"/>
@@ -346,6 +351,7 @@
                                             número de serie <span t-field="linea.serial_no"/>,
                                         </span>
                                         estado de la máquina o herramienta <span t-field="linea.estado_equipo"/>.
+                                        <br/>
                                         <div t-if="linea.codigo_interno" class="col-5 bm-2">
                                             <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', linea.codigo_interno, 600, 150)" style="width:100%;height:4rem" alt="Barcode"/>
                                         </div>

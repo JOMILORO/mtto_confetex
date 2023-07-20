@@ -112,7 +112,7 @@ class MaintenanceEquipmentLoanWizard(models.TransientModel):
                 'tipo_movimiento': self.tipo_movimiento,
                 'company_id': self.company_id.id,
                 'category_id': self.category_id.id,
-                'department_id': self.department_id or False,
+                'department_id': self.department_id.id or False,
                 'ubicacion': self.ubicacion,
                 'proveedor_id': self.proveedor_id.id,
                 'proveedor_ref': self.proveedor_ref,
