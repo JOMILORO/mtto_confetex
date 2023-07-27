@@ -199,15 +199,15 @@
                                             <td id="codigo_interno" class="text-center">
                                                 <span t-field="linea.codigo_interno"/>
                                             </td>
-                                            <td id="name" class="text-center">
+                                            <td id="name">
                                                 <span t-field="linea.name"/>
                                             </td>
-                                            <td id="model" class="text-center">
+                                            <td id="model">
                                                 <div t-if="linea.model">
                                                     <span t-field="linea.model"/>
                                                 </div>
                                             </td>
-                                            <td id="serial_no" class="text-center">
+                                            <td id="serial_no">
                                                 <div t-if="linea.serial_no">
                                                     <span t-field="linea.serial_no"/>
                                                 </div>
@@ -402,8 +402,8 @@
                                         <br/>
                                     </td>
                                     <td id="referencia">
-                                        <div t-if="linea.codigo_interno" class="col-5 bm-2">
-                                            <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', linea.codigo_interno, 600, 150)" style="width:100%;height:4rem" alt="Barcode"/>
+                                        <div t-if="linea.codigo_interno">
+                                            <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', linea.codigo_interno, 400, 100)" style="width:100%;height:4rem" alt="Barcode"/>
                                         </div>
                                     </td>
                                 </tr>
