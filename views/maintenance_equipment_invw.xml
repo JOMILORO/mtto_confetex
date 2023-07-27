@@ -37,7 +37,7 @@
             </field>
         </record>
 
-         <!-- Acción para abrir Wizard préstamo del equipo de mantenimiento  -->
+        <!-- Acción para abrir Wizard préstamo del equipo de mantenimiento  -->
         <record id="maintenance_equipment_loan_open_wizard" model="ir.actions.act_window">
             <field name="name">Crear préstamo</field>
             <field name="type">ir.actions.act_window</field>
@@ -45,6 +45,24 @@
             <field name="view_mode">form</field>
             <field name="view_id" ref="view_maintenance_equipment_loan_wizard_form"/>
             <field name="target">new</field>
+        </record>
+
+        <!-- Acción para el modelo Equipo de mantenimiento utilizado en botón inteligente dentro
+         de jomiloro.equipment.form.inherit1.
+         Abre o muestra todos los accesorios de una máquina o herramienta, por default muestra la vista tree -->
+        <record id="action_view_maintenance_equipment_accessories" model="ir.actions.act_window">
+            <field name="name">Accesorios</field>
+            <field name="res_model">maintenance.equipment</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="maintenance.hr_equipment_view_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Accesorios no encontrados. ¡Vamos a crear uno!
+                </p><p>
+                    Para crear accesorios cree una máquina o herramienta y habilite la opción accesorio,
+                    y seleccionae la máquina o herramienta padre.
+                </p>
+            </field>
         </record>
 
         <!-- Inherit search View to Modify it -->
@@ -73,6 +91,8 @@
                     <filter string="Equipo en préstamo" name="equipo_en_prestamo" domain="[('state', '=', 'en_prestamo')]"/>
                     <separator/>
                     <filter string="Por inventariar" name="es_inventariable" domain="[('is_inventariado', '=', False)]"/>
+                    <separator/>
+                    <filter string="Solo máquinas y herramientas" name="es_kit" domain="[('es_kit', '=', False)]" invisible="0"/>
                 </xpath>
                 <xpath expr="//filter[@name='category']" position="after">
                     <filter name="group_by_seccion" string="Sección" context="{'group_by': 'id_seccion'}"/>
@@ -113,6 +133,14 @@
                             </span>
                         </div>
                     </button>
+                    <button name="action_accessories"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-tasks"
+                            attrs="{'invisible' : ['|', ('es_kit', '=', True), ('id', '=', False)]}"
+                            context="{'default_parent_id': id}">
+                        <field string="Accesorios" name="accesorios_numero" widget="statinfo"/>
+                    </button>
                 </div>
                 <xpath expr="//form//sheet" position="before">
                     <header>
@@ -137,6 +165,7 @@
                 </xpath>
                 <xpath expr="//field[@name='location']" position="after">
                     <field name="es_kit" widget="boolean_toggle"/>
+                    <field name="parent_id" attrs="{'invisible':[('es_kit', '=', False)]}" domain="[('es_kit','=', False)]"/>
                 </xpath>
                 <xpath expr="//field[@name='model']" position="before">
                     <field name="numero_economico"/>

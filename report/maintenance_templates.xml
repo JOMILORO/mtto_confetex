@@ -5,7 +5,7 @@
         <!-- Plantilla para el reporte de Características y Documentos para Máquinas y Herramientas -->
         <template id="report_features_documents">
             <t t-call="web.external_layout">
-                <div class="page" style="font-size:16px">
+                <div class="page">
                     <div class="oe_structure"/>
                     <div id="nombre-equipo" class="row mt32 mb32">
                         <div t-if="doc.name" class="col-9 bm-2">
@@ -118,10 +118,10 @@
             </t>
         </template>
 
-        <!-- Plantilla para el reporte de Características para Máquinas y Herramientas -->
+        <!-- Plantilla para el reporte de Características y accesorios para Máquinas y Herramientas -->
         <template id="report_features_equipment">
             <t t-call="web.external_layout">
-                <div class="page" style="font-size:16px">
+                <div class="page">
                     <div class="oe_structure"/>
                     <div id="nombre-equipo" class="row mt32 mb32">
                         <div t-if="doc.name" class="col-9 bm-2">
@@ -170,6 +170,52 @@
                             <strong>Moneda: </strong><span t-field="doc.id_currency"/><br/>
                             <strong>Fecha en la que expira la garantía: </strong><span t-field="doc.warranty_date"/>
                             <strong>Equipo de apoyo: </strong><span t-field="doc.es_equipo_apoyo"/>
+                        </div>
+                    </div>
+                    <div t-if="doc.child_ids" id="accesorios-equipo" class="row mt32 mb32">
+                        <div id="accesorios-informacion-general" class="col-12 bm-2">
+                            <br/>
+                            <h3>Accesorios</h3>
+                            <table class="table table-sm o_main_table">
+                                <thead>
+                                    <tr>
+                                        <th name="th_movimiento" class="text-center"><strong>#</strong></th>
+                                        <th name="th_codigo_interno" class="text-center"><strong>Código interno</strong></th>
+                                        <th name="th_name" class="text-center"><strong>Nombre</strong></th>
+                                        <th name="th_model" class="text-center"><strong>Modelo</strong></th>
+                                        <th name="th_serial_no" class="text-center"><strong>Numero de serie</strong></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="cdt_lineas" t-value="0"/>
+                                    <t t-foreach="doc.child_ids" t-as="linea">
+                                        <tr>
+                                            <t t-set="cdt_lineas" t-value="cdt_lineas+1"/>
+                                            <td id="numero_mov" class="text-center">
+                                                <span>
+                                                    <t t-esc="cdt_lineas"/>
+                                                </span>
+                                            </td>
+                                            <td id="codigo_interno" class="text-center">
+                                                <span t-field="linea.codigo_interno"/>
+                                            </td>
+                                            <td id="name" class="text-center">
+                                                <span t-field="linea.name"/>
+                                            </td>
+                                            <td id="model" class="text-center">
+                                                <div t-if="linea.model">
+                                                    <span t-field="linea.model"/>
+                                                </div>
+                                            </td>
+                                            <td id="serial_no" class="text-center">
+                                                <div t-if="linea.serial_no">
+                                                    <span t-field="linea.serial_no"/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <br/>
@@ -270,16 +316,6 @@
                     </div>
                     <br/>
                     <div id="informacion-remitente-fila-1" class="row mt32 mb32">
-                        <div t-if="doc.company_id" class="col-7 bm-2">
-                            <strong>Compañía:</strong>
-                            <p t-field="doc.company_id" class="m-0"/>
-                        </div>
-                        <div t-if="doc.category_id" class="col-5 bm-2">
-                            <strong>Categoría:</strong>
-                            <p t-field="doc.category_id" class="m-0"/>
-                        </div>
-                    </div>
-                    <div id="informacion-remitente-fila-2" class="row mt32 mb32">
                         <div t-if="doc.ubicacion" class="col-4 bm-2">
                             <strong>Ubicación:</strong>
                             <p t-field="doc.ubicacion" class="m-0"/>
@@ -291,6 +327,17 @@
                         <div t-if="doc.fecha_efectiva" class="col-4 bm-2">
                             <strong>Fecha:</strong>
                             <p t-field="doc.fecha_efectiva" class="m-0"/>
+                        </div>
+                    </div>
+                    <br/>
+                    <div id="informacion-remitente-fila-2" class="row mt32 mb32">
+                        <div t-if="doc.company_id" class="col-7 bm-2">
+                            <strong>Compañía:</strong>
+                            <p t-field="doc.company_id" class="m-0"/>
+                        </div>
+                        <div t-if="doc.category_id" class="col-5 bm-2">
+                            <strong>Categoría:</strong>
+                            <p t-field="doc.category_id" class="m-0"/>
                         </div>
                     </div>
                     <br/>
@@ -318,7 +365,8 @@
                                 <th name="th_movimiento" class="text-center"><strong>Movimiento</strong></th>
                                 <th name="th_cantidad" class="text-center"><strong>Cantidad</strong></th>
                                 <th name="th_uom" class="text-center"><strong>Unidad</strong></th>
-                                <th name="descripción" class="text-center"><strong>Descripción del artículo</strong></th>
+                                <th name="th_descripción" class="text-center"><strong>Descripción del artículo</strong></th>
+                                <th name="th_referencia" class="text-center"><strong>Referencia interna</strong></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -352,6 +400,8 @@
                                         </span>
                                         estado de la máquina o herramienta <span t-field="linea.estado_equipo"/>.
                                         <br/>
+                                    </td>
+                                    <td id="referencia">
                                         <div t-if="linea.codigo_interno" class="col-5 bm-2">
                                             <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', linea.codigo_interno, 600, 150)" style="width:100%;height:4rem" alt="Barcode"/>
                                         </div>

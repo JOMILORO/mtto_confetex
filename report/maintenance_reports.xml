@@ -15,7 +15,7 @@
         </record>
 
         <record id="report_equipment" model="ir.actions.report">
-            <field name="name">Características</field>
+            <field name="name">Características y accesorios</field>
             <field name="model">maintenance.equipment</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">mtto_confetex.report_featuresequipment</field>
