@@ -400,10 +400,8 @@
                                         </span>
                                         estado de la máquina o herramienta <span t-field="linea.estado_equipo"/>.
                                         <br/>
-                                    </td>
-                                    <td id="referencia">
-                                        <div t-if="linea.codigo_interno">
-                                            <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', linea.codigo_interno, 400, 100)" style="width:100%;height:4rem" alt="Barcode"/>
+                                        <div t-if="linea.codigo_interno" class="col-5 bm-2">
+                                            <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', linea.codigo_interno, 600, 150)" style="width:100%;height:4rem" alt="Barcode"/>
                                         </div>
                                     </td>
                                 </tr>
