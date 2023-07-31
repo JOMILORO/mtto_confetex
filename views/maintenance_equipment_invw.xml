@@ -185,6 +185,7 @@
                 <notebook position="inside">
                     <page string="Documentos" groups="mtto_confetex.group_documentos_mantenimiento">
                         <group>
+                            <field name="url_carpeta_google_drive_category" widget="url"/>
                             <field name="url_carpeta_google_drive" widget="url" string="Url carpeta"/>
                             <field name="url_documento_qr" widget="url" string="Url documento QR"/>
                         </group>

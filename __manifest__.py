@@ -27,6 +27,7 @@
         'report/maintenance_templates.xml',
         'views/maintenance_equipment_menu_vw.xml',
         'views/maintenance_channel_gd_vw.xml',
+        'views/maintenance_equipment_category_inmo_jomiloro_vw.xml',
         'views/maintenance_equipment_document_vw.xml',
         'views/maintenance_equipment_document_type_vw.xml',
         'views/maintenance_equipment_invw.xml',

@@ -84,6 +84,8 @@ class MaintenanceEquipmentInmo(models.Model):
         copy=True
     )
     numero_economico = fields.Char(string="Número económico", required=False, index=True, copy=False)
+    url_carpeta_google_drive_category = fields.Char(string="URL Ctegoría GD", related="category_id.url_carpeta_google_drive",
+                                                    readonly=True)
     url_carpeta_google_drive = fields.Char(string="URL carpeta documentos", required=False)
     url_documento_qr = fields.Char(string="URL Documento QR", required=False)
     fecha_compra = fields.Date(string="Fecha de compra", required=False)
