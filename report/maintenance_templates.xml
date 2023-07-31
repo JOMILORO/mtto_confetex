@@ -275,7 +275,7 @@
                     </tr>
                     <tr>
                         <div t-if="codigo_barras.child_ids">
-                            <table class="table table-bordered mb-0">
+                            <table class="table table-bordered mb-0" style="border: 2px solid black;">
                                 <tbody>
                                     <t t-foreach="codigo_barras.child_ids" t-as="linea">
                                         <tr>
