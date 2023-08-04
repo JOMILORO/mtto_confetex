@@ -38,6 +38,13 @@
         <field name="context" eval="{'search_default_mis_prestamos_maquinas': 1}"/>
     </record>
 
+    <!-- Acción para ir a Características del equipo de mantenimiento -->
+    <record id="maintenance_equipment_characteristics_act_open_window" model="ir.actions.act_window">
+        <field name="name">Características del equipo de mantenimiento</field>
+        <field name="res_model">maintenance.equipment.characteristics</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
     <!-- Elementos de menú para modulo mtto_confetex -->
     <menuitem id="mh_canales_google_drive"
               name="Canales"
@@ -75,4 +82,10 @@
               sequence="33"
               groups="maintenance.group_equipment_manager,base.group_user"
               action="maintenance_equipment_loan_act_open_window"/>
+    <menuitem id="mv_maintenance_equipment_characteristics"
+              name="Características de máquina"
+              parent="maintenance.menu_maintenance_configuration"
+              sequence="4"
+              groups="maintenance.group_equipment_manager,base.group_user"
+              action="maintenance_equipment_characteristics_act_open_window"/>
 </odoo>

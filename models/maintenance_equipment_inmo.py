@@ -134,6 +134,13 @@ class MaintenanceEquipmentInmo(models.Model):
         context={'active_test': False}
     )
     accesorios_numero = fields.Integer(string="Número de accesorios", compute='accessories_equipment_count')
+    characteristics_item_ids = fields.One2many(
+        comodel_name="maintenance.equipment.characteristics.item",
+        inverse_name="equipment_id",
+        string="Características",
+        required=False,
+        copy=True
+    )
 
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=80):
@@ -208,3 +215,31 @@ class MaintenanceEquipmentInmo(models.Model):
                         'id_seccion': rec.id_seccion.id or False,
                         'location': rec.location or False
                     })
+
+class MaintenanceEquipmentCharacteristicsItem(models.Model):
+    _name = 'maintenance.equipment.characteristics.item'
+    _description = 'Movimiento para características del equipo de mantenimiento'
+
+    name = fields.Many2one(
+        comodel_name="maintenance.equipment.characteristics",
+        string="Características máquina",
+        required=True,
+        index=True,
+        copy=False
+    )
+    equipment_id = fields.Many2one(
+        comodel_name="maintenance.equipment",
+        string="Máquina o herramienta",
+        required=False,
+        ondelete='cascade'
+    )
+    tipo_caracteristica_id = fields.Many2one(
+        comodel_name='maintenance.equipment.characteristics.type',
+        string='Tipo',
+        required=True,
+        readonly=False,
+        related='name.tipo_caracteristica_id',
+        store=True
+    )
+    valor = fields.Char(string="Valor", required=False)
+    sequence = fields.Integer(string='Secuencia', default=1)

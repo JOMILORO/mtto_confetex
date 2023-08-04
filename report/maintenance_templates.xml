@@ -172,6 +172,44 @@
                             <strong>Equipo de apoyo: </strong><span t-field="doc.es_equipo_apoyo"/>
                         </div>
                     </div>
+                    <div t-if="doc.characteristics_item_ids" id="caracterisiticas-equipo" class="row mt32 mb32">
+                        <div id="caracterisiticas-informacion-general" class="col-12 bm-2">
+                            <br/>
+                            <h3>Características</h3>
+                            <table class="table table-sm o_main_table">
+                                <thead>
+                                    <tr>
+                                        <th name="th_movimiento_char" class="text-center"><strong>#</strong></th>
+                                        <th name="th_name_char" class="text-center"><strong>Característica</strong></th>
+                                        <th name="th_tipo_caracteristica" class="text-center"><strong>Tipo</strong></th>
+                                        <th name="th_valor" class="text-center"><strong>Valor</strong></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="cdt_lineas" t-value="0"/>
+                                    <t t-foreach="doc.characteristics_item_ids" t-as="linea_char">
+                                        <tr>
+                                            <t t-set="cdt_lineas" t-value="cdt_lineas+1"/>
+                                            <td id="numero_mov_char" class="text-center">
+                                                <span>
+                                                    <t t-esc="cdt_lineas"/>
+                                                </span>
+                                            </td>
+                                            <td id="name_char">
+                                                <span t-field="linea_char.name"/>
+                                            </td>
+                                            <td id="tipo_caracterisitca">
+                                                <span t-field="linea_char.tipo_caracteristica_id"/>
+                                            </td>
+                                            <td id="valor">
+                                                <span t-field="linea_char.valor"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     <div t-if="doc.child_ids" id="accesorios-equipo" class="row mt32 mb32">
                         <div id="accesorios-informacion-general" class="col-12 bm-2">
                             <br/>

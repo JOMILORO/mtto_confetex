@@ -135,4 +135,308 @@
         <field name="alias_name">equipo-bordado</field>
     </record>
 
+    <!-- Tipo de caracterísitca para equipamiento -->
+    <record id="maintenance_equipment_characteristics_type_01" model="maintenance.equipment.characteristics.type">
+        <field name="name">Almacenamiento</field>
+    </record>
+    <record id="maintenance_equipment_characteristics_type_02" model="maintenance.equipment.characteristics.type">
+        <field name="name">Cartucho tinta color</field>
+    </record>
+    <record id="maintenance_equipment_characteristics_type_03" model="maintenance.equipment.characteristics.type">
+        <field name="name">Cartucho tóner</field>
+    </record>
+    <record id="maintenance_equipment_characteristics_type_04" model="maintenance.equipment.characteristics.type">
+        <field name="name">Direccionamiento IP V4</field>
+    </record>
+    <record id="maintenance_equipment_characteristics_type_05" model="maintenance.equipment.characteristics.type">
+        <field name="name">DNS</field>
+    </record>
+    <record id="maintenance_equipment_characteristics_type_06" model="maintenance.equipment.characteristics.type">
+        <field name="name">Memoria RAM</field>
+    </record>
+    <record id="maintenance_equipment_characteristics_type_07" model="maintenance.equipment.characteristics.type">
+        <field name="name">Nombre de red SSID</field>
+    </record>
+    <record id="maintenance_equipment_characteristics_type_08" model="maintenance.equipment.characteristics.type">
+        <field name="name">Procesador</field>
+    </record>
+    <record id="maintenance_equipment_characteristics_type_09" model="maintenance.equipment.characteristics.type">
+        <field name="name">Sistema Operativo</field>
+    </record>
+    <record id="maintenance_equipment_characteristics_type_10" model="maintenance.equipment.characteristics.type">
+        <field name="name">Tipo de sistema</field>
+    </record>
+    <record id="maintenance_equipment_characteristics_type_11" model="maintenance.equipment.characteristics.type">
+        <field name="name">Unidad de Tambor</field>
+    </record>
+
+    <!-- Caracterísitca para equipamiento -->
+    <record id="maintenance_equipment_characteristics_01" model="maintenance.equipment.characteristics">
+        <field name="name">2 TB</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_01"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_02" model="maintenance.equipment.characteristics">
+        <field name="name">32 GB</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_01"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_03" model="maintenance.equipment.characteristics">
+        <field name="name">80 GB</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_01"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_04" model="maintenance.equipment.characteristics">
+        <field name="name">148 GB</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_01"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_05" model="maintenance.equipment.characteristics">
+        <field name="name">160 GB</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_01"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_06" model="maintenance.equipment.characteristics">
+        <field name="name">218 GB</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_01"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_07" model="maintenance.equipment.characteristics">
+        <field name="name">223 GB</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_01"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_08" model="maintenance.equipment.characteristics">
+        <field name="name">232 GB</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_01"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_09" model="maintenance.equipment.characteristics">
+        <field name="name">237 GB</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_01"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_10" model="maintenance.equipment.characteristics">
+        <field name="name">240 GB</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_01"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_11" model="maintenance.equipment.characteristics">
+        <field name="name">256 GB</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_01"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_12" model="maintenance.equipment.characteristics">
+        <field name="name">297 GB</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_01"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_13" model="maintenance.equipment.characteristics">
+        <field name="name">512 GB</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_01"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_14" model="maintenance.equipment.characteristics">
+        <field name="name">914 GB</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_01"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_15" model="maintenance.equipment.characteristics">
+        <field name="name">928</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_01"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_16" model="maintenance.equipment.characteristics">
+        <field name="name">Adaptador de Ethernet dinámico DHCP</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_04"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_17" model="maintenance.equipment.characteristics">
+        <field name="name">Adaptador de Ethernet estático</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_04"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_18" model="maintenance.equipment.characteristics">
+        <field name="name">Adaptdor LAN inalámbrico dinámico DHCP</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_04"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_19" model="maintenance.equipment.characteristics">
+        <field name="name">Adaptdor LAN inalámbrico estático</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_04"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_20" model="maintenance.equipment.characteristics">
+        <field name="name">DNS Automáticamente</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_05"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_21" model="maintenance.equipment.characteristics">
+        <field name="name">Servidor DNS alternativo</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_05"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_22" model="maintenance.equipment.characteristics">
+        <field name="name">Servidor DNS predefinido</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_05"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_23" model="maintenance.equipment.characteristics">
+        <field name="name">2 GB</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_06"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_24" model="maintenance.equipment.characteristics">
+        <field name="name">3 GB</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_06"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_25" model="maintenance.equipment.characteristics">
+        <field name="name">4 GB</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_06"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_26" model="maintenance.equipment.characteristics">
+        <field name="name">8 GB</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_06"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_27" model="maintenance.equipment.characteristics">
+        <field name="name">12 GB</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_06"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_28" model="maintenance.equipment.characteristics">
+        <field name="name">64 GB</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_06"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_29" model="maintenance.equipment.characteristics">
+        <field name="name">11th Gen Intel(R) Core(TM) i3-1115G4 @ 3.00GHz   3.00 GHZ</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_30" model="maintenance.equipment.characteristics">
+        <field name="name">11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz 2.42 GHZ</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_31" model="maintenance.equipment.characteristics">
+        <field name="name">AMD A6-7480 Radeon R5, 8 Compute Core 2C+6G 3.50 GHz</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_32" model="maintenance.equipment.characteristics">
+        <field name="name">AMD Athlon(tm) II 160 u Processor 1.80 GHZ</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_33" model="maintenance.equipment.characteristics">
+        <field name="name">AMD E1-6010 APU with AMD Radeon R2 Graphics 1.35 GHz</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_34" model="maintenance.equipment.characteristics">
+        <field name="name">AMD Ryzen 3 2200G with Radeon Vega Graphics 3.50 GHZ</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_35" model="maintenance.equipment.characteristics">
+        <field name="name">AMD Ryzen 5 4600U whit Radeon</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_36" model="maintenance.equipment.characteristics">
+        <field name="name">AMD Ryzen 5 5500U whit Radeon Graphics 2.10 Ghz</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_37" model="maintenance.equipment.characteristics">
+        <field name="name">Broadcom BCM2711, SoC (ARM Cortex-A72 @ 1.8GHz) de 64 Bits</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_38" model="maintenance.equipment.characteristics">
+        <field name="name">Intel(R) Atom(TM) CPU D425 @ 1.80GHz 1.79 GHz</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_39" model="maintenance.equipment.characteristics">
+        <field name="name">Intel(R) Celeron(R) CPU 2.80GHz 2.79 GHz</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_40" model="maintenance.equipment.characteristics">
+        <field name="name">Intel(R) Celeron(R) N4020 CPU @ 1.10GHz</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_41" model="maintenance.equipment.characteristics">
+        <field name="name">Intel(R) Core(TM) 2 Duo CPU E8400 @ 3.00GHz 2.99 GHz</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_42" model="maintenance.equipment.characteristics">
+        <field name="name">Intel(R) Core(TM) i3-1005G1 CPU @ 1.20GHz   1.19 GHz</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_43" model="maintenance.equipment.characteristics">
+        <field name="name">Intel(R) Core(TM) i3-1011U CPU@ 2.10GHz 2.60 GHz</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_44" model="maintenance.equipment.characteristics">
+        <field name="name">Intel(R) Core(TM) i3-7020U CPU @ 2.30GHz   2.30 GHz</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_45" model="maintenance.equipment.characteristics">
+        <field name="name">Intel(R) Core(TM) i5-10210U CPU @ 1.60GHz 2.11GHz</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_46" model="maintenance.equipment.characteristics">
+        <field name="name">Intel(R) Core(TM) i7-1255U CPU @ 1.70GHz   1.70 GHz</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_47" model="maintenance.equipment.characteristics">
+        <field name="name">Intel(R) Core(TM)2 CPU 6300 @ 1.86 GHz</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_48" model="maintenance.equipment.characteristics">
+        <field name="name">Intel(R) Core(TM)2 Duo CPU E8400 @ 3.00GHz 3.00GHz</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_49" model="maintenance.equipment.characteristics">
+        <field name="name">Intel(R) Xeon(R) Gold 6240R CPU @ 2.40GHz 2.39 GHz</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_50" model="maintenance.equipment.characteristics">
+        <field name="name">MediaTek G80</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_51" model="maintenance.equipment.characteristics">
+        <field name="name">Qualcomm Snapdragon 439</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_08"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_52" model="maintenance.equipment.characteristics">
+        <field name="name">Android 10</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_09"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_53" model="maintenance.equipment.characteristics">
+        <field name="name">Android 12</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_09"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_54" model="maintenance.equipment.characteristics">
+        <field name="name">Raspbian GNU/Linux 11 (bullseye)</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_09"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_55" model="maintenance.equipment.characteristics">
+        <field name="name">Windows 10 Home Single Language</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_09"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_56" model="maintenance.equipment.characteristics">
+        <field name="name">Windows 10 Home Single Language 21H1</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_09"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_57" model="maintenance.equipment.characteristics">
+        <field name="name">Windows 10 Pro</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_09"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_58" model="maintenance.equipment.characteristics">
+        <field name="name">Windows 11 Pro</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_09"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_59" model="maintenance.equipment.characteristics">
+        <field name="name">Windows 7 Home Basic Servise pack 1</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_09"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_60" model="maintenance.equipment.characteristics">
+        <field name="name">Windows 7 Professional Service Pack 1</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_09"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_61" model="maintenance.equipment.characteristics">
+        <field name="name">Windows 7 Ultimate</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_09"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_62" model="maintenance.equipment.characteristics">
+        <field name="name">Windows 8.1 Pro</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_09"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_63" model="maintenance.equipment.characteristics">
+        <field name="name">Windows 8.1 Pro for Education</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_09"/>
+    </record>
+     <record id="maintenance_equipment_characteristics_64" model="maintenance.equipment.characteristics">
+        <field name="name">Windows Server 2019 Standar</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_09"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_65" model="maintenance.equipment.characteristics">
+        <field name="name">Procesador de 32 bits armv7l</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_10"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_66" model="maintenance.equipment.characteristics">
+        <field name="name">Sistema Operativo de 32 bits</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_10"/>
+    </record>
+    <record id="maintenance_equipment_characteristics_67" model="maintenance.equipment.characteristics">
+        <field name="name">Sistema operativo de 64 bits, procesador basado en x64</field>
+        <field name="tipo_caracteristica_id" ref="maintenance_equipment_characteristics_type_10"/>
+    </record>
 </odoo>

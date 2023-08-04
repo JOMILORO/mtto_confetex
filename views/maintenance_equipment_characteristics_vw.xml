@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+         <!-- Busquedas,filtros y agrupaciones para Características del equipo de mantenimiento-->
+        <record id="view_maintenance_equipment_characteristics_search" model="ir.ui.view">
+            <field name="name">view.maintenance.equipment.characteristics.search</field>
+            <field name="model">maintenance.equipment.characteristics</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Nombre" filter_domain="[('name', 'ilike', self)]"/>
+                    <filter name="caracteristicas_archivados" string="Archivados" domain="[('active', '=', False)]"/>
+                    <group>
+                        <filter name="group_by_tipo_categoria" string="Tipo categoría" context="{'group_by': 'tipo_caracteristica_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Formulario para el modelo Características del equipo de mantenimiento -->
+        <record id="view_maintenance_equipment_characteristics_form" model="ir.ui.view">
+            <field name="name">view.maintenance.equipment.characteristics.form</field>
+            <field name="model">maintenance.equipment.characteristics</field>
+            <field name="arch" type="xml">
+                <form string="Características en máquinas y herramientas">
+                    <sheet>
+                        <widget name="web_ribbon" title="Archivado" bg-color="bg-danger" attrs="{'invisible': [('active','=',True)]}"/>
+                        <div class="oe_title">
+                            <field name="active" invisible="1"/>
+                            <label class="oe_edit_only" for="name" string="Nombre"/>
+                            <h1><field placeholder="Característica de la máquina o herramienta" name="name" default_focus="1"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="tipo_caracteristica_id" />
+                            </group>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Listado para el modelo Características del equipo de mantenimiento -->
+        <record id="view_maintenance_equipment_characteristics_tree" model="ir.ui.view">
+            <field name="name">view.maintenance.equipment.characteristics.tree</field>
+            <field name="model">maintenance.equipment.characteristics</field>
+            <field name="arch" type="xml">
+                <tree string="Características en máquinas y herramientas">
+                    <field name="tipo_caracteristica_id"/>
+                    <field name="name"/>
+                    <field name="create_uid" string="Creado por"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>
