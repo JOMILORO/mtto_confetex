@@ -191,8 +191,8 @@
                                 </control>
                                 <field name="sequence" optional="show" widget="handle"/>
                                 <field name="name"/>
-                                <field name="tipo_caracteristica_id"/>
                                 <field name="valor"/>
+                                <field name="tipo_caracteristica_id"/>
                             </tree>
                         </field>
                     </page>

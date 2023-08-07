@@ -225,7 +225,7 @@ class MaintenanceEquipmentCharacteristicsItem(models.Model):
         string="Características máquina",
         required=True,
         index=True,
-        copy=False
+        copy=True
     )
     equipment_id = fields.Many2one(
         comodel_name="maintenance.equipment",
@@ -237,9 +237,10 @@ class MaintenanceEquipmentCharacteristicsItem(models.Model):
         comodel_name='maintenance.equipment.characteristics.type',
         string='Tipo',
         required=True,
-        readonly=False,
+        readonly=True,
         related='name.tipo_caracteristica_id',
-        store=True
+        store=True,
+        copy=True
     )
     valor = fields.Char(string="Valor", required=False)
     sequence = fields.Integer(string='Secuencia', default=1)
