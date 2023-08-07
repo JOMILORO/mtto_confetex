@@ -183,8 +183,22 @@
                     <field name="propiedad_equipo" widget="radio" groups="mtto_confetex.group_documentos_mantenimiento"/>
                 </xpath>
                 <notebook position="inside">
+                    <page string="Detalle">
+                        <field name="characteristics_item_ids">
+                            <tree editable="bottom">
+                                <control>
+                                    <create name="add_product_control" string="Agregar detalle a máquina o herramienta"/>
+                                </control>
+                                <field name="sequence" optional="show" widget="handle"/>
+                                <field name="name"/>
+                                <field name="valor"/>
+                                <field name="tipo_caracteristica_id"/>
+                            </tree>
+                        </field>
+                    </page>
                     <page string="Documentos" groups="mtto_confetex.group_documentos_mantenimiento">
                         <group>
+                            <field name="url_carpeta_google_drive_category" widget="url"/>
                             <field name="url_carpeta_google_drive" widget="url" string="Url carpeta"/>
                             <field name="url_documento_qr" widget="url" string="Url documento QR"/>
                         </group>

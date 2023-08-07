@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="jomiloro_equipment_category_form_inherit1" model="ir.ui.view">
+            <field name="name">jomiloro.equipment.category.form.inherit1</field>
+            <field name="model">maintenance.equipment.category</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_category_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='technician_user_id']" position="after">
+                    <field name="chanel_gd_id" options="{'no_create': True, 'no_open': True}"/>
+                    <field name="url_carpeta_google_drive"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

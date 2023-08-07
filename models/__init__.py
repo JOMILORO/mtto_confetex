@@ -8,3 +8,5 @@ from . import maintenance_channel_gd
 from . import maintenance_equipment_inmo
 from . import maintenance_equipment_review
 from . import maintenance_equipment_loan
+from . import maintenance_equipment_category_inmo_jomiloro
+from . import maintenance_equipment_characteristics

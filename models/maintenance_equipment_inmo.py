@@ -84,6 +84,8 @@ class MaintenanceEquipmentInmo(models.Model):
         copy=True
     )
     numero_economico = fields.Char(string="Número económico", required=False, index=True, copy=False)
+    url_carpeta_google_drive_category = fields.Char(string="URL Categoría GD", related="category_id.url_carpeta_google_drive",
+                                                    readonly=True)
     url_carpeta_google_drive = fields.Char(string="URL carpeta documentos", required=False)
     url_documento_qr = fields.Char(string="URL Documento QR", required=False)
     fecha_compra = fields.Date(string="Fecha de compra", required=False)
@@ -132,6 +134,13 @@ class MaintenanceEquipmentInmo(models.Model):
         context={'active_test': False}
     )
     accesorios_numero = fields.Integer(string="Número de accesorios", compute='accessories_equipment_count')
+    characteristics_item_ids = fields.One2many(
+        comodel_name="maintenance.equipment.characteristics.item",
+        inverse_name="equipment_id",
+        string="Características",
+        required=False,
+        copy=True
+    )
 
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=80):
@@ -206,3 +215,32 @@ class MaintenanceEquipmentInmo(models.Model):
                         'id_seccion': rec.id_seccion.id or False,
                         'location': rec.location or False
                     })
+
+class MaintenanceEquipmentCharacteristicsItem(models.Model):
+    _name = 'maintenance.equipment.characteristics.item'
+    _description = 'Movimiento para características del equipo de mantenimiento'
+
+    name = fields.Many2one(
+        comodel_name="maintenance.equipment.characteristics",
+        string="Características máquina",
+        required=True,
+        index=True,
+        copy=True
+    )
+    equipment_id = fields.Many2one(
+        comodel_name="maintenance.equipment",
+        string="Máquina o herramienta",
+        required=False,
+        ondelete='cascade'
+    )
+    tipo_caracteristica_id = fields.Many2one(
+        comodel_name='maintenance.equipment.characteristics.type',
+        string='Tipo',
+        required=True,
+        readonly=True,
+        related='name.tipo_caracteristica_id',
+        store=True,
+        copy=True
+    )
+    valor = fields.Char(string="Valor", required=False)
+    sequence = fields.Integer(string='Secuencia', default=1)
